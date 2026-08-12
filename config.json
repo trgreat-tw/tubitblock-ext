@@ -2,8 +2,8 @@
     "updater": {
         "default": {
             "provider": "github",
-            "repo": "Laishixun0612/tubitblock-ext"
+            "repo": "trgreat-tw/tubitblock-ext"
         }
     },
-    "version": "2.11.0"
+    "version": "2.11.2"
 }
