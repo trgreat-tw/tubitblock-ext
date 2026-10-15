@@ -93,6 +93,17 @@ function registerBlocks (Blockly) {
         }
     };
 
+    Blockly.Blocks.tubitv2motor_resetenc = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.TUBITV2_MOTOR_RESETENC,
+                colour: color,
+                secondaryColour: secondaryColour,
+                extensions: ['shape_statement']
+            });
+        }
+    };
+
     Blockly.Blocks.tubitv2motor_setenc = {
         init: function () {
             this.jsonInit({

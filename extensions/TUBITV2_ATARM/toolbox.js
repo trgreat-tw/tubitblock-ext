@@ -10,6 +10,7 @@ function registerToolboxs () {
 
     <sep gap="36"/>
     <label text="%{BKY_TUBITV2ATARM_SET}" />
+    <label text="%{BKY_TUBITV2ATARM_CLAWSET_NOTE}" />
 
     <block type="tubitv2atarm_clawset" id="tubitv2atarm_clawset">
             <value name="CLAWOPDEG">
@@ -61,6 +62,14 @@ function registerToolboxs () {
         </shadow>
         </value>
     </block> 
+
+    <block type="tubitv2atarm_clawadd" id="tubitv2atarm_clawadd">
+        <value name="DEG">
+        <shadow type="math_number">
+            <field name="NUM">5</field>
+        </shadow>
+        </value>
+    </block>
     
     <sep gap="36"/>
     <label text="%{BKY_ATARM_DEGADD}" />

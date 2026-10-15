@@ -38,15 +38,17 @@ TuIRAlign<Robot>::TuIRAlign(TuBitCore& core, Robot& robot)
 // ============ 基本設定函式 ============
 
 template<typename Robot>
-void TuIRAlign<Robot>::setPins(int IR_up , int IR_back ,
-                               int IR_LU , int IR_LB ,
-                               int IR_RU , int IR_RB) {
-  pins_.up   = IR_up;
-  pins_.back = IR_back;
-  pins_.lu   = IR_LU;
-  pins_.lb   = IR_LB;
-  pins_.ru   = IR_RU;
-  pins_.rb   = IR_RB;
+void TuIRAlign<Robot>::setPins(int IR_1, int IR_2,
+                               int IR_3, int IR_4,
+                               int IR_5, int IR_6) {
+  // 實體通道位置：1 前、2 後、3 左後、4 左前、5 右後、6 右前。
+  // 內部仍依前/後/左前/左後/右前/右後的語意欄位存放。
+  pins_.up   = IR_1;
+  pins_.back = IR_2;
+  pins_.lu   = IR_4;
+  pins_.lb   = IR_3;
+  pins_.ru   = IR_6;
+  pins_.rb   = IR_5;
 }
 
 template<typename Robot>
@@ -88,6 +90,13 @@ void TuIRAlign<Robot>::setOutputLimits(double vxLim, double vyLim, double wzLim,
   pidX_.SetOutputLimits(-vx_limit_, vx_limit_);
   pidY_.SetOutputLimits(-vy_limit_, vy_limit_);
   pidT_.SetOutputLimits(-wz_limit_, wz_limit_);
+}
+
+template<typename Robot>
+void TuIRAlign<Robot>::setAccelerationLimits(double linearPerSecond,
+                                              double angularPerSecond) {
+  linear_accel_limit_ = linearPerSecond > 0 ? linearPerSecond : 0;
+  angular_accel_limit_ = angularPerSecond > 0 ? angularPerSecond : 0;
 }
 
 // ============ PID 設定 ============
@@ -149,11 +158,15 @@ template<typename Robot>
 bool TuIRAlign<Robot>::step(IRDir mainDir, IRDir secDir) {
   readAllIR_();
 
-  if (!has_active_request_ || mainDir != active_main_dir_ || secDir != active_sec_dir_) {
+  const bool new_request = !has_active_request_ ||
+                           mainDir != active_main_dir_ ||
+                           secDir != active_sec_dir_;
+  if (new_request) {
     has_active_request_ = true;
     active_main_dir_ = mainDir;
     active_sec_dir_ = secDir;
     side_phase_ = SIDE_PHASE_APPROACH;
+    resetCommand_();
   }
 
   double vx = 0, vy = 0, wz = 0;
@@ -172,6 +185,7 @@ bool TuIRAlign<Robot>::step(IRDir mainDir, IRDir secDir) {
         IR_Y_SP_ = targets_.up;
       }
 
+      if (new_request) resetPidState_();
       pidY_.Compute();
 
       if (reached_(IR_Y_IN_, IR_Y_SP_, deadband_dist_)) {
@@ -188,6 +202,7 @@ bool TuIRAlign<Robot>::step(IRDir mainDir, IRDir secDir) {
 
       selectSideDistanceTarget_(secDir, IR_X_IN_, IR_X_SP_);
 
+      if (new_request) resetPidState_();
       pidX_.Compute();
 
       if (sideDistanceReached_(secDir)) {
@@ -207,7 +222,7 @@ bool TuIRAlign<Robot>::step(IRDir mainDir, IRDir secDir) {
       return true;
     }
 
-    robot_.driveVectorClosed(vx, vy, 0);
+    driveRamped_(vx, vy, 0);
     return false;
   }
 
@@ -268,6 +283,9 @@ bool TuIRAlign<Robot>::step(IRDir mainDir, IRDir secDir) {
     IR_Y_SP_ = 0;
     sec_done = true;
   }
+
+  // 等本次校正所用的感測器值都寫入 PID input 後再重設，避免 Kd 導數突波。
+  if (new_request) resetPidState_();
 
   // 計算 PID
   if (side_main) {
@@ -330,7 +348,7 @@ bool TuIRAlign<Robot>::step(IRDir mainDir, IRDir secDir) {
     vy = -IR_Y_OU_;
   }
 
-  robot_.driveVectorClosed(vx, vy, wz*1.15);
+  driveRamped_(vx, vy, wz * 1.15);
   return false;
 }
 
@@ -365,6 +383,7 @@ bool TuIRAlign<Robot>::alignBlocking(IRDir mainDir,
         // 微調時間到 → 停車 + resetEnc，結束
         core_.stopAllMotors();
         core_.resetEnc();
+        resetState_();
         return true;
       } else {
         // 在確認期間，繼續呼叫 step 做微調（忽略回傳值）
@@ -376,6 +395,7 @@ bool TuIRAlign<Robot>::alignBlocking(IRDir mainDir,
     if (millis() - start >= timeout_ms) {
       core_.stopAllMotors();
       core_.resetEnc();
+      resetState_();
       return false;
     }
 
@@ -488,11 +508,92 @@ void TuIRAlign<Robot>::selectSideDistanceTarget_(IRDir dir, double& in, double& 
 }
 
 template<typename Robot>
+void TuIRAlign<Robot>::driveRamped_(double targetVx,
+                                    double targetVy,
+                                    double targetWz) {
+  const unsigned long now = micros();
+
+  if (!command_initialized_) {
+    command_vx_ = 0;
+    command_vy_ = 0;
+    command_wz_ = 0;
+    last_command_us_ = now;
+    command_initialized_ = true;
+  }
+
+  double elapsed = static_cast<double>(now - last_command_us_) / 1000000.0;
+  // 主迴圈若暫停太久，也不要在恢復後單次跳升太多。
+  if (elapsed > 0.1) elapsed = 0.1;
+  last_command_us_ = now;
+
+  if (linear_accel_limit_ > 0) {
+    const double maxDelta = linear_accel_limit_ * elapsed;
+    command_vx_ = rampUp_(command_vx_, targetVx, maxDelta);
+    command_vy_ = rampUp_(command_vy_, targetVy, maxDelta);
+  } else {
+    command_vx_ = targetVx;
+    command_vy_ = targetVy;
+  }
+
+  if (angular_accel_limit_ > 0) {
+    command_wz_ = rampUp_(command_wz_, targetWz,
+                          angular_accel_limit_ * elapsed);
+  } else {
+    command_wz_ = targetWz;
+  }
+
+  robot_.driveVectorClosed(command_vx_, command_vy_, command_wz_);
+}
+
+template<typename Robot>
+double TuIRAlign<Robot>::rampUp_(double current,
+                                 double target,
+                                 double maxDelta) const {
+  // 不讓命令在同一拍由正轉直接跳成反轉；下一拍會從 0 緩起。
+  if ((current > 0 && target < 0) || (current < 0 && target > 0)) return 0;
+
+  // 完成、靠近目標或 PID 主動降速時立即跟隨，保留原有減速效果。
+  if (target == 0 || fabs(target) <= fabs(current)) return target;
+
+  const double delta = target - current;
+  if (fabs(delta) <= maxDelta) return target;
+  if (maxDelta <= 0) return current;
+  return current + (delta > 0 ? maxDelta : -maxDelta);
+}
+
+template<typename Robot>
+void TuIRAlign<Robot>::resetCommand_() {
+  command_vx_ = 0;
+  command_vy_ = 0;
+  command_wz_ = 0;
+  last_command_us_ = 0;
+  command_initialized_ = false;
+}
+
+template<typename Robot>
+void TuIRAlign<Robot>::resetPidState_() {
+  // PID_v1 會在 MANUAL -> AUTOMATIC 時，以目前輸出重新初始化積分項。
+  pidY_.SetMode(MANUAL);
+  pidX_.SetMode(MANUAL);
+  pidT_.SetMode(MANUAL);
+
+  IR_Y_OU_ = 0;
+  IR_X_OU_ = 0;
+  IR_T_OU_ = 0;
+
+  pidY_.SetMode(AUTOMATIC);
+  pidX_.SetMode(AUTOMATIC);
+  pidT_.SetMode(AUTOMATIC);
+}
+
+template<typename Robot>
 void TuIRAlign<Robot>::resetState_() {
   has_active_request_ = false;
   active_main_dir_ = IR_NONE;
   active_sec_dir_ = IR_NONE;
   side_phase_ = SIDE_PHASE_APPROACH;
+  resetCommand_();
+  resetPidState_();
 }
 
 template<typename Robot>

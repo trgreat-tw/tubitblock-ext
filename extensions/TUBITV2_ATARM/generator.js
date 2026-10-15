@@ -31,8 +31,14 @@ function registerGenerators (Blockly) {
 
     Blockly.Arduino.tubitv2atarm_claw = function (block) {
         const claw = block.getFieldValue('ACTION');
-        const timer = Blockly.Arduino.valueToCode(block, 'TIME', Blockly.Arduino.ORDER_ATOMIC);
+        const timer = Blockly.Arduino.valueToCode(block, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || '0';
         return `ATARM_ClawCtrl(${claw},${timer});\n`;
+    };
+
+    Blockly.Arduino.tubitv2atarm_clawadd = function (block) {
+        const action = block.getFieldValue('ACTION');
+        const deg = Blockly.Arduino.valueToCode(block, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || '0';
+        return `ATARM_ClawAdd(${action},${deg});\n`;
     };
 
     Blockly.Arduino.tubitv2atarm_trcontroladd= function (block) {
@@ -47,13 +53,13 @@ function registerGenerators (Blockly) {
 
     Blockly.Arduino.tubitv2atarm_trcontrol= function (block) {
         const deg = Blockly.Arduino.valueToCode(block, 'DEG', Blockly.Arduino.ORDER_ATOMIC);
-        const timer = Blockly.Arduino.valueToCode(block, 'TIME', Blockly.Arduino.ORDER_ATOMIC);
+        const timer = Blockly.Arduino.valueToCode(block, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || '0';
         return`ATARM_PanSet(${deg},${timer});\n`;
     };
     
     Blockly.Arduino.tubitv2atarm_udcontrol= function (block) {
         const deg = Blockly.Arduino.valueToCode(block, 'DEG', Blockly.Arduino.ORDER_ATOMIC);
-        const timer = Blockly.Arduino.valueToCode(block, 'TIME', Blockly.Arduino.ORDER_ATOMIC);
+        const timer = Blockly.Arduino.valueToCode(block, 'TIME', Blockly.Arduino.ORDER_ATOMIC) || '0';
         return`ATARM_LiftSet(${deg},${timer});\n`;
     };
 

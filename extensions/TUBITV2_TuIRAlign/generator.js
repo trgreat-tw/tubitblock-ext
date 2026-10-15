@@ -45,18 +45,24 @@ function registerGenerators (Blockly) {
         const robotName = isOtc ? 'otc' : 'mtc';
         const declaration = `${robot} ${robotName}(tubit);`;
 
-        if (!Blockly.Arduino.includes_[includeKey]) {
-            Blockly.Arduino.includes_[includeKey] = `#include <${header}>`;
+        Blockly.Arduino.includes_.tubitv2_set = `#include <TuBitCore.h>\n#include <Wire.h>`;
+        Blockly.Arduino.includes_[includeKey] = `#include <${header}>`;
+
+        const coreDefinitions = Blockly.Arduino.definitions_.tubitv2_set || '';
+        if (!coreDefinitions.includes('TuBitCore tubit;')) {
+            Blockly.Arduino.definitions_.tubitv2_set = `TuBitCore tubit;${coreDefinitions ? `\n${coreDefinitions}` : ''}`;
         }
 
-        if (!Blockly.Arduino.definitions_['tubitv2_set']) {
-            Blockly.Arduino.definitions_['tubitv2_set'] = '';
+        // MTC uses its own definition key; OTC currently shares the core key.
+        if (isOtc) {
+            if (!Blockly.Arduino.definitions_.tubitv2_set.includes(declaration)) {
+                Blockly.Arduino.definitions_.tubitv2_set += `\n${declaration}`;
+            }
+        } else {
+            Blockly.Arduino.definitions_[includeKey] = declaration;
         }
 
-        if (!Blockly.Arduino.definitions_['tubitv2_set'].includes(declaration)) {
-            Blockly.Arduino.definitions_['tubitv2_set'] += `\n${declaration}`;
-        }
-
+        Blockly.Arduino.setups_.TUBITV2_SET = `tubit.init();`;
         return robotName;
     };
 
@@ -71,11 +77,11 @@ function registerGenerators (Blockly) {
     Blockly.Arduino.tubitv2tuiralign_setpins = function (block) {
         const front = block.getFieldValue('FRONT');
         const back = block.getFieldValue('BACK');
-        const leftFront = block.getFieldValue('LEFT_FRONT');
         const leftBack = block.getFieldValue('LEFT_BACK');
-        const rightFront = block.getFieldValue('RIGHT_FRONT');
+        const leftFront = block.getFieldValue('LEFT_FRONT');
         const rightBack = block.getFieldValue('RIGHT_BACK');
-        return `tuirAlign().setPins(${front},${back},${leftFront},${leftBack},${rightFront},${rightBack});\n`;
+        const rightFront = block.getFieldValue('RIGHT_FRONT');
+        return `tuirAlign().setPins(${front},${back},${leftBack},${leftFront},${rightBack},${rightFront});\n`;
     };
 
     Blockly.Arduino.tubitv2tuiralign_settargets = function (block) {

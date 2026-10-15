@@ -40,7 +40,7 @@ function registerBlocksMessages (Blockly) {
             "TUBITV2_MOTOR_M4":"M4",
             "TUBITV2_MOTOR_ALLRUN":"all motor run M1 %1 M2 %2 M3 %3 M4 %4",
             "TUBITV2_MOTOR_READENC":"read motor %1 encoder",
-            "TUBITV2_MOTOR_RESETENC":"reset all motor encoder",
+            "TUBITV2_MOTOR_RESETENC":"reset all motor encoders",
             "TUBITV2_MOTOR_SETENC":" set %1 motor encoder  %2",
             "TUBITV2_MOTOR_ENC":"Encoder"
 
@@ -58,7 +58,7 @@ function registerBlocksMessages (Blockly) {
             "TUBITV2_MOTOR_M4":"M4",
             "TUBITV2_MOTOR_ALLRUN":"所有电机 M1 %1 M2 %2 M3 %3 M4 %4",
             "TUBITV2_MOTOR_READENC":"读取电机 %1 编码数",
-            "TUBITV2_MOTOR_RESETENC":"重设所有电机编码器",
+            "TUBITV2_MOTOR_RESETENC":"归零所有编码器",
             "TUBITV2_MOTOR_SETENC":" 设定 %1 电机 编码数  %2",
             "TUBITV2_MOTOR_ENC":"编码器"
 
@@ -76,7 +76,7 @@ function registerBlocksMessages (Blockly) {
             "TUBITV2_MOTOR_M4":"M4",
             "TUBITV2_MOTOR_ALLRUN":"控制馬達 M1 %1 M2 %2 M3 %3 M4 %4",
             "TUBITV2_MOTOR_READENC":"讀取馬達 %1 編碼器",
-            "TUBITV2_MOTOR_RESETENC":"重設所有馬達編碼器",
+            "TUBITV2_MOTOR_RESETENC":"歸零所有編碼器",
             "TUBITV2_MOTOR_SETENC":" 設定 %1 馬達 編碼器 %2",
             "TUBITV2_MOTOR_ENC":"馬達編碼器"
 

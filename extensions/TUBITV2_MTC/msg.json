@@ -1,5 +1,17 @@
 {
        "TUBITV2_MTC_CATEGORY": "MTC Robot",
+        "TUBITV2_MTC_LABEL_WHEEL_RATIO": "MTC: Four-wheel ratio adjustment",
+        "TUBITV2_MTC_LABEL_BASIC_OPEN_LOOP": "MTC: Open-loop control",
+        "TUBITV2_MTC_SET_MOTOR_OFFSET": "Wheel speed ratio adjustment % M1: %1 M2: %2 M3: %3 M4: %4",
+        "TUBITV2_MTC_SET_MOTOR_OFFSET_TOOLTIP": "0 keeps the original speed; positive values increase it and negative values decrease it. Each wheel is limited to -80% through +100%.",
+        "TUBITV2_MTC_LABEL_OPEN_LOOP": "-- Open-loop control --",
+        "TUBITV2_MTC_LABEL_CLOSED_LOOP": "-- Closed-loop control --",
+        "TUBITV2_MTC_BNO_SET_MOVE_ORIGIN": "BNO set current direction as movement origin",
+        "TUBITV2_MTC_BNO_SET_MOVE_ORIGIN_TOOLTIP": "Requires the BNO055 extension. Run once after placing the robot and before each new motion sequence; the current heading becomes 0 degrees and establishes the fixed X/Y axes.",
+        "TUBITV2_MTC_BNO_AMOVE_SCURVE": "BNO move x: %1 y: %2 (cm), segment rotation: %3 (deg), max speed: %4, acceleration: %5",
+        "TUBITV2_MTC_BNO_AMOVE_SCURVE_TOOLTIP": "Requires the BNO055 extension. Rotation is relative for each segment: -20 then +20 returns to the starting heading, 0 holds, and +720 turns right twice. Deceleration is the negative acceleration; start and end speeds are 0.",
+        "TUBITV2_MTC_BNO_MOVE_SCURVE": "BNO move x: %1 y: %2 (cm), segment rotation: %3 (deg), max speed: %4, acceleration: %5, deceleration: %6, start speed: %7, end speed: %8",
+        "TUBITV2_MTC_BNO_MOVE_SCURVE_TOOLTIP": "Requires the BNO055 extension. X/Y use the fixed axes captured at motion start. Rotation is relative for each segment: -20 then +20 returns to the starting heading, 0 holds, and +720 turns right twice.",
         "TUBITV2_MTC_RUNDEG": "MTC Move to %1 degrees, Speed: %2",
         "TUBITV2_MTC_RUNXYR": "MTC Move toward x: %1 y: %2 rotation: %3",
         "TUBITV2_MTC_SETXYRDATA": "MTC Set parameters X: %1 Y: %2 Rotation: %3",
@@ -22,7 +34,7 @@
         "TUBITV2_MTC_LABEL_ADVANCE_A": "MTC: Advanced Parameter Settings",
         "TUBITV2_MTC_LABEL_ADVANCE_B": "MTC: Advanced Motion Control",
         "TUBITV2_MTC_LABEL_ADVANCE_C": "MTC: Interrupt Settings",
-        "TUBITV2_MTC_LABEL_ADVANCE_D": "MTC: BNO055 Module",
+        "TUBITV2_MTC_LABEL_ADVANCE_D": "MTC: BNO055 Gyroscope",
         "TUBITV2_MTC_SETBODYDEG": "Set MTC body angle to %1",
         "TUBITV2_MTC_RUNXYRV7RC":"MTC REMOTE  x: %1 y: %2 L:%3 R:%4"
 }

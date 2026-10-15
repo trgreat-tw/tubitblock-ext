@@ -5,6 +5,36 @@ function registerBlocks (Blockly) {
     const color = '#FF6700';
     const secondaryColour = '#FF6700';
 
+    Blockly.Blocks.tubitv2mtc_setmotoroffset = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.TUBITV2_MTC_SET_MOTOR_OFFSET,
+                args0: [
+                    {
+                        type: 'input_value',
+                        name: 'M1'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'M2'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'M3'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'M4'
+                    }
+                ],
+                colour: color,
+                secondaryColour: secondaryColour,
+                tooltip: Blockly.Msg.TUBITV2_MTC_SET_MOTOR_OFFSET_TOOLTIP,
+                extensions: ['shape_statement']
+            });
+        }
+    };
+
     Blockly.Blocks.tubitv2mtc_setcpr = {
         init: function () {
             this.jsonInit({
@@ -450,6 +480,104 @@ function registerBlocks (Blockly) {
                 colour: color,
                 secondaryColour: secondaryColour,
                 extensions: ['output_number']
+            });
+        }
+    };
+
+
+    // 以目前 BNO 方向建立新一串移動的角度 0 與固定 XY 座標。
+    Blockly.Blocks.tubitv2mtc_bno_set_move_origin = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.TUBITV2_MTC_BNO_SET_MOVE_ORIGIN,
+                colour: color,
+                secondaryColour: secondaryColour,
+                tooltip: Blockly.Msg.TUBITV2_MTC_BNO_SET_MOVE_ORIGIN_TOOLTIP,
+                extensions: ['shape_statement']
+            });
+        }
+    };
+
+
+    // V3 BNO 精簡移動：減速度自動為負加速度，起始／結束速度為 0。
+    Blockly.Blocks.tubitv2mtc_bno_amove_scurve = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.TUBITV2_MTC_BNO_AMOVE_SCURVE,
+                args0: [
+                    {
+                        type: 'input_value',
+                        name: 'X'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'Y'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'Z'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'VM'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'A'
+                    }
+                ],
+                colour: color,
+                secondaryColour: secondaryColour,
+                tooltip: Blockly.Msg.TUBITV2_MTC_BNO_AMOVE_SCURVE_TOOLTIP,
+                extensions: ['shape_statement']
+            });
+        }
+    };
+
+
+    // V3 BNO 完整移動：無模式、無 forwardYaw／目前角度輸入。
+    Blockly.Blocks.tubitv2mtc_bno_move_scurve = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.TUBITV2_MTC_BNO_MOVE_SCURVE,
+                args0: [
+                    {
+                        type: 'input_value',
+                        name: 'X'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'Y'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'Z'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'VM'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'A'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'AD'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'VS'
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'VE'
+                    }
+                ],
+                colour: color,
+                secondaryColour: secondaryColour,
+                tooltip: Blockly.Msg.TUBITV2_MTC_BNO_MOVE_SCURVE_TOOLTIP,
+                extensions: ['shape_statement']
             });
         }
     };

@@ -67,10 +67,10 @@ function registerBlocks (Blockly) {
     const irSensors = [
         [msg('TUBITV2TUIRALIGN_IR_1', '1 前'), 'UP'],
         [msg('TUBITV2TUIRALIGN_IR_2', '2 後'), 'BK'],
-        [msg('TUBITV2TUIRALIGN_IR_3', '3 左前'), 'LU'],
-        [msg('TUBITV2TUIRALIGN_IR_4', '4 左後'), 'LB'],
-        [msg('TUBITV2TUIRALIGN_IR_5', '5 右前'), 'RU'],
-        [msg('TUBITV2TUIRALIGN_IR_6', '6 右後'), 'RB']
+        [msg('TUBITV2TUIRALIGN_IR_3', '3 左後'), 'LB'],
+        [msg('TUBITV2TUIRALIGN_IR_4', '4 左前'), 'LU'],
+        [msg('TUBITV2TUIRALIGN_IR_5', '5 右後'), 'RB'],
+        [msg('TUBITV2TUIRALIGN_IR_6', '6 右前'), 'RU']
     ];
 
     Blockly.Blocks.tubitv2tuiralign_init = {
@@ -97,7 +97,7 @@ function registerBlocks (Blockly) {
     Blockly.Blocks.tubitv2tuiralign_setpins = {
         init: function () {
             this.jsonInit({
-                message0: msg('TUBITV2TUIRALIGN_SETPINS', '設定 IR 腳位 前 %1 後 %2 左前 %3 左後 %4 右前 %5 右後 %6'),
+                message0: msg('TUBITV2TUIRALIGN_SETPINS', '設定 IR 腳位 1前 %1 2後 %2 3左後 %3 4左前 %4 5右後 %5 6右前 %6'),
                 args0: [
                     {
                         type: 'field_dropdown',
@@ -111,22 +111,22 @@ function registerBlocks (Blockly) {
                     },
                     {
                         type: 'field_dropdown',
-                        name: 'LEFT_FRONT',
-                        options: analogPins
-                    },
-                    {
-                        type: 'field_dropdown',
                         name: 'LEFT_BACK',
                         options: analogPins
                     },
                     {
                         type: 'field_dropdown',
-                        name: 'RIGHT_FRONT',
+                        name: 'LEFT_FRONT',
                         options: analogPins
                     },
                     {
                         type: 'field_dropdown',
                         name: 'RIGHT_BACK',
+                        options: analogPins
+                    },
+                    {
+                        type: 'field_dropdown',
+                        name: 'RIGHT_FRONT',
                         options: analogPins
                     }
                 ],

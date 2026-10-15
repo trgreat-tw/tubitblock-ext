@@ -37,7 +37,7 @@ const zhTwMessages = {
     "TUBITV2TUIRALIGN_SECONDARY_RUN": "次校正（前／後／左／右／無）",
     "TUBITV2TUIRALIGN_STEP_RUN": "非阻塞單步",
     "TUBITV2TUIRALIGN_INIT": "初始化 IR 靠牆校正模式 %1",
-    "TUBITV2TUIRALIGN_SETPINS": "設定 IR 腳位 前 %1 後 %2 左前 %3 左後 %4 右前 %5 右後 %6",
+    "TUBITV2TUIRALIGN_SETPINS": "設定 IR 腳位 1前 %1 2後 %2 3左後 %3 4左前 %4 5右後 %5 6右前 %6",
     "TUBITV2TUIRALIGN_SETTARGETS": "設定 IR 目標值 前 %1 後 %2 左前 %3 左後 %4 右前 %5 右後 %6",
     "TUBITV2TUIRALIGN_SETRATIOANGLE": "設定 IR 比例角度模式 %1",
     "TUBITV2TUIRALIGN_SETDEADBANDS": "設定 IR 誤差範圍 距離 %1 角度 %2",
@@ -68,10 +68,10 @@ const zhTwMessages = {
     "TUBITV2TUIRALIGN_RIGHT_BACK": "右後",
     "TUBITV2TUIRALIGN_IR_1": "1 前",
     "TUBITV2TUIRALIGN_IR_2": "2 後",
-    "TUBITV2TUIRALIGN_IR_3": "3 左前",
-    "TUBITV2TUIRALIGN_IR_4": "4 左後",
-    "TUBITV2TUIRALIGN_IR_5": "5 右前",
-    "TUBITV2TUIRALIGN_IR_6": "6 右後"
+    "TUBITV2TUIRALIGN_IR_3": "3 左後",
+    "TUBITV2TUIRALIGN_IR_4": "4 左前",
+    "TUBITV2TUIRALIGN_IR_5": "5 右後",
+    "TUBITV2TUIRALIGN_IR_6": "6 右前"
 };
 
 const enMessages = {
@@ -84,7 +84,7 @@ const enMessages = {
     "TUBITV2TUIRALIGN_SECONDARY_RUN": "Secondary Alignment (Front/Back/Left/Right/None)",
     "TUBITV2TUIRALIGN_STEP_RUN": "Non-blocking Step",
     "TUBITV2TUIRALIGN_INIT": "initialize IR wall alignment mode %1",
-    "TUBITV2TUIRALIGN_SETPINS": "set IR pins front %1 back %2 left front %3 left back %4 right front %5 right back %6",
+    "TUBITV2TUIRALIGN_SETPINS": "set IR pins 1 front %1 2 back %2 3 left back %3 4 left front %4 5 right back %5 6 right front %6",
     "TUBITV2TUIRALIGN_SETTARGETS": "set IR target values front %1 back %2 left front %3 left back %4 right front %5 right back %6",
     "TUBITV2TUIRALIGN_SETRATIOANGLE": "set IR ratio angle mode %1",
     "TUBITV2TUIRALIGN_SETDEADBANDS": "set IR tolerance range distance %1 angle %2",
@@ -115,10 +115,10 @@ const enMessages = {
     "TUBITV2TUIRALIGN_RIGHT_BACK": "right back",
     "TUBITV2TUIRALIGN_IR_1": "1 front",
     "TUBITV2TUIRALIGN_IR_2": "2 back",
-    "TUBITV2TUIRALIGN_IR_3": "3 left front",
-    "TUBITV2TUIRALIGN_IR_4": "4 left back",
-    "TUBITV2TUIRALIGN_IR_5": "5 right front",
-    "TUBITV2TUIRALIGN_IR_6": "6 right back"
+    "TUBITV2TUIRALIGN_IR_3": "3 left back",
+    "TUBITV2TUIRALIGN_IR_4": "4 left front",
+    "TUBITV2TUIRALIGN_IR_5": "5 right back",
+    "TUBITV2TUIRALIGN_IR_6": "6 right front"
 };
 
 const zhCnMessages = Object.assign({}, zhTwMessages, {
@@ -130,7 +130,7 @@ const zhCnMessages = Object.assign({}, zhTwMessages, {
     "TUBITV2TUIRALIGN_MAIN_RUN": "主校正／次校正（可选无）",
     "TUBITV2TUIRALIGN_SECONDARY_RUN": "次校正（前／后／左／右／无）",
     "TUBITV2TUIRALIGN_INIT": "初始化 IR 靠墙校正模式 %1",
-    "TUBITV2TUIRALIGN_SETPINS": "设置 IR 脚位 前 %1 后 %2 左前 %3 左后 %4 右前 %5 右后 %6",
+    "TUBITV2TUIRALIGN_SETPINS": "设置 IR 脚位 1前 %1 2后 %2 3左后 %3 4左前 %4 5右后 %5 6右前 %6",
     "TUBITV2TUIRALIGN_SETTARGETS": "设置 IR 目标值 前 %1 后 %2 左前 %3 左后 %4 右前 %5 右后 %6",
     "TUBITV2TUIRALIGN_SETRATIOANGLE": "设置 IR 比例角度模式 %1",
     "TUBITV2TUIRALIGN_SETDEADBANDS": "设置 IR 误差范围 距离 %1 角度 %2",
@@ -151,8 +151,8 @@ const zhCnMessages = Object.assign({}, zhTwMessages, {
     "TUBITV2TUIRALIGN_NONE": "无",
     "TUBITV2TUIRALIGN_AXIS_Y": "Y 前后",
     "TUBITV2TUIRALIGN_IR_2": "2 后",
-    "TUBITV2TUIRALIGN_IR_4": "4 左后",
-    "TUBITV2TUIRALIGN_IR_6": "6 右后"
+    "TUBITV2TUIRALIGN_IR_3": "3 左后",
+    "TUBITV2TUIRALIGN_IR_5": "5 右后"
 });
 
 function registerBlocksMessages (Blockly) {

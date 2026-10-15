@@ -6,9 +6,9 @@ const ps4_controller = formatMessage => ({
     }),
     extensionId: 'ps4_controller',
 
-    version: '0.0.２',
+    version: '1.1.1',
     supportDevice: [ 'arduinoEsp32'],
-    author: 'YC',
+    author: 'Juan Pablo Marquez / YC',
     iconURL: `assets/ps4.png`,
     description: formatMessage({
         id: 'ps4_controller.description',

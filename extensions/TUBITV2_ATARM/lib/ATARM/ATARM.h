@@ -1,3 +1,4 @@
+// ATARM v1.1.0 (2026-10-06)
 #ifndef ATARM_H
 #define ATARM_H
 
@@ -60,6 +61,9 @@ inline void ATARM_SetPanRange(float minDeg, float maxDeg) {
 inline void ATARM_ClawCtrl(bool action, int sec = 0) {
   float target = action ? atarm_clawCloseDeg : atarm_clawOpenDeg;
 
+  // The target is already reached, so do not repeat the movement delay.
+  if (fabs(target - atarm_clawDeg) < 0.01f) return;
+
   if (sec <= 0) {
     atarm_clawDeg = target;
     tubit.setServoAngle(atarm_clawPin, atarm_clawDeg);
@@ -75,6 +79,26 @@ inline void ATARM_ClawCtrl(bool action, int sec = 0) {
     delay(delayTime);
   }
   atarm_clawDeg = target;
+}
+
+// ------------------- 夾爪累加控制 -------------------
+// action: true = close/grab, false = open/release
+inline void ATARM_ClawAdd(bool action, float deg) {
+  if (deg < 0) deg = -deg;
+  if (deg < 0.01f) return;
+
+  float limit = action ? atarm_clawCloseDeg : atarm_clawOpenDeg;
+  if (fabs(limit - atarm_clawDeg) < 0.01f) return;
+
+  if (atarm_clawDeg < limit) {
+    atarm_clawDeg += deg;
+    if (atarm_clawDeg > limit) atarm_clawDeg = limit;
+  } else {
+    atarm_clawDeg -= deg;
+    if (atarm_clawDeg < limit) atarm_clawDeg = limit;
+  }
+
+  tubit.setServoAngle(atarm_clawPin, atarm_clawDeg);
 }
 
 // ------------------- 抬臂馬達累加 -------------------
@@ -98,6 +122,9 @@ inline void ATARM_LiftSet(float target, int sec) {
   if (target > atarm_liftMaxDeg) target = atarm_liftMaxDeg;
   if (target < atarm_liftMinDeg) target = atarm_liftMinDeg;
 
+  // The target is already reached, so do not repeat the movement delay.
+  if (fabs(target - atarm_liftDeg) < 0.01f) return;
+
   if (sec <= 0) {
     atarm_liftDeg = target;
     tubit.setServoAngle(atarm_liftPin, atarm_liftDeg);
@@ -119,6 +146,9 @@ inline void ATARM_LiftSet(float target, int sec) {
 inline void ATARM_PanSet(float target, int sec) {
   if (target > atarm_panMaxDeg) target = atarm_panMaxDeg;
   if (target < atarm_panMinDeg) target = atarm_panMinDeg;
+
+  // The target is already reached, so do not repeat the movement delay.
+  if (fabs(target - atarm_panDeg) < 0.01f) return;
 
   if (sec <= 0) {
     atarm_panDeg = target;

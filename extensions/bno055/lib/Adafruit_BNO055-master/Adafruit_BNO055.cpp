@@ -82,17 +82,15 @@ bool Adafruit_BNO055::begin(adafruit_bno055_opmode_t mode) {
   i2c_dev->setSpeed(50000);
 #endif
 
-  // can take 850 ms to boot!
-  int timeout = 850; // in ms
-  while (timeout > 0) {
-    if (i2c_dev->begin()) {
-      break;
-    }
-    // wasnt detected... we'll retry!
+  // The sensor can take up to 850 ms to boot. Use elapsed time so a stalled
+  // I2C transaction cannot multiply the retry period.
+  bool detected = i2c_dev->begin();
+  uint32_t detectionStart = millis();
+  while (!detected && millis() - detectionStart < 850) {
     delay(10);
-    timeout -= 10;
+    detected = i2c_dev->detected();
   }
-  if (timeout <= 0)
+  if (!detected)
     return false;
 
   /* Make sure we have the right device */
@@ -112,7 +110,11 @@ bool Adafruit_BNO055::begin(adafruit_bno055_opmode_t mode) {
   write8(BNO055_SYS_TRIGGER_ADDR, 0x20);
   /* Delay increased to 30ms due to power issues https://tinyurl.com/y375z699 */
   delay(30);
+  uint32_t resetStart = millis();
   while (read8(BNO055_CHIP_ID_ADDR) != BNO055_ID) {
+    if (millis() - resetStart >= 1500) {
+      return false;
+    }
     delay(10);
   }
   delay(50);

@@ -7,7 +7,7 @@ const tubitv2atarm = formatMessage => ({
 
     extensionId: 'tubitv2atarm',
     
-    version: '1.0.0',
+    version: '1.1.0',
     supportDevice: [ 'arduinoEsp32'],
     author: 'HONG TU 鴻兔科技',
     iconURL: `assets/atarm.png`,

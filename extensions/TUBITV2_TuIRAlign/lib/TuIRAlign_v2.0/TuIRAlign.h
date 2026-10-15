@@ -5,6 +5,8 @@
 #include <PID_v1.h>
 #include "TuBitCore.h"
 
+#define TUIRALIGN_VERSION "2.0.3"
+
 
 // 方向列舉：主牆 / 次牆用
 enum IRDir {
@@ -40,10 +42,11 @@ class TuIRAlign {
 public:
   TuIRAlign(TuBitCore& core, Robot& robot);
 
-  // 設定 IR 腳位
-  void setPins(int IR_up , int IR_back ,
-               int IR_LU , int IR_LB ,
-               int IR_RU , int IR_RB);
+  // 設定 IR 腳位，參數依實體通道順序：
+  // 1 前、2 後、3 左後、4 左前、5 右後、6 右前
+  void setPins(int IR_1, int IR_2,
+               int IR_3, int IR_4,
+               int IR_5, int IR_6);
 
   // 設定 IR 目標（建議以距牆 10cm 的量測值 /100）
   void setTargets(double t_up, double t_back,
@@ -61,6 +64,9 @@ public:
 
   // 調整輸出上限與角度比例
   void setOutputLimits(double vxLim, double vyLim, double wzLim, double wzScale);
+
+  // 調整起步加速度上限（速度單位/秒、角度速度單位/秒）；設為 0 可關閉
+  void setAccelerationLimits(double linearPerSecond, double angularPerSecond);
 
   // 外部微調 PID 參數，參數順序皆為 Kp, Ki, Kd
   void setPidY(double kp, double ki, double kd);
@@ -115,6 +121,15 @@ private:
   double wz_limit_ = 360;
   double wz_scale_ = 2.5;
 
+  // 預設約 0.5 秒到達各軸輸出上限；只限制加速，不延遲 PID 減速
+  double linear_accel_limit_  = 40;
+  double angular_accel_limit_ = 360;
+  double command_vx_ = 0;
+  double command_vy_ = 0;
+  double command_wz_ = 0;
+  unsigned long last_command_us_ = 0;
+  bool command_initialized_ = false;
+
   enum SideAlignPhase {
     SIDE_PHASE_APPROACH,
     SIDE_PHASE_ROTATE
@@ -142,6 +157,10 @@ private:
   bool   reached_(double in, double sp, double db) const;
   bool   sideDistanceReached_(IRDir dir) const;
   void   selectSideDistanceTarget_(IRDir dir, double& in, double& sp) const;
+  void   driveRamped_(double targetVx, double targetVy, double targetWz);
+  double rampUp_(double current, double target, double maxDelta) const;
+  void   resetCommand_();
+  void   resetPidState_();
   void   resetState_();
   double ema_(double prev, double now, double alpha);
 };

@@ -7,7 +7,7 @@ const tubitv2ppgun = formatMessage => ({
 
     extensionId: 'tubitv2ppgun',
     
-    version: '1.0.0',
+    version: '1.1.1',
     supportDevice: [ 'arduinoEsp32'],
     author: 'HONG TU 鴻兔科技',
     iconURL: `assets/ppgun.png`,

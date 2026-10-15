@@ -5,6 +5,33 @@ function registerToolboxs () {
     return `
 <category name="%{BKY_TUBITV2_MTC_CATEGORY}" id="TUBITV2_MTC_CATEGORY" colour="#FF6700" secondaryColour="#FF6700">
 
+<label text="%{BKY_TUBITV2_MTC_LABEL_WHEEL_RATIO}" />
+
+<block type="tubitv2mtc_setmotoroffset" id="tubitv2mtc_setmotoroffset">
+    <value name="M1">
+        <shadow type="math_number">
+            <field name="NUM">0</field>
+        </shadow>
+    </value>
+    <value name="M2">
+        <shadow type="math_number">
+            <field name="NUM">0</field>
+        </shadow>
+    </value>
+    <value name="M3">
+        <shadow type="math_number">
+            <field name="NUM">0</field>
+        </shadow>
+    </value>
+    <value name="M4">
+        <shadow type="math_number">
+            <field name="NUM">0</field>
+        </shadow>
+    </value>
+</block>
+
+<label text="%{BKY_TUBITV2_MTC_LABEL_BASIC_OPEN_LOOP}" />
+
 <block type="tubitv2mtc_rundeg" id="tubitv2mtc_rundeg">
     
 <value name="DEG">
@@ -62,8 +89,6 @@ function registerToolboxs () {
     </shadow>
     </value>
 </block>
-
-
 
 <label text="%{BKY_TUBITV2_MTC_LABEL_ADVANCE_A}" />
 
@@ -341,14 +366,38 @@ function registerToolboxs () {
 <block type="tubitv2mtc_interr"></block>
 
 <label text="%{BKY_TUBITV2_MTC_LABEL_ADVANCE_D}" />
-    
+
+<label text="%{BKY_TUBITV2_MTC_LABEL_OPEN_LOOP}" />
+
 <block type="tubitv2mtc_bnomove">
-  <value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
-  <value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
-  <value name="Z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
-  <value name="NOWZ"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="Z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="NOWZ"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
 </block>
 
+<label text="%{BKY_TUBITV2_MTC_LABEL_CLOSED_LOOP}" />
+
+<block type="tubitv2mtc_bno_set_move_origin" id="tubitv2mtc_bno_set_move_origin"></block>
+
+<block type="tubitv2mtc_bno_amove_scurve" id="tubitv2mtc_bno_amove_scurve">
+    <value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="Z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="VM"><shadow type="math_number"><field name="NUM">800</field></shadow></value>
+    <value name="A"><shadow type="math_number"><field name="NUM">400</field></shadow></value>
+</block>
+
+<block type="tubitv2mtc_bno_move_scurve" id="tubitv2mtc_bno_move_scurve">
+    <value name="X"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="Y"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="Z"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="VM"><shadow type="math_number"><field name="NUM">800</field></shadow></value>
+    <value name="A"><shadow type="math_number"><field name="NUM">400</field></shadow></value>
+    <value name="AD"><shadow type="math_number"><field name="NUM">-400</field></shadow></value>
+    <value name="VS"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+    <value name="VE"><shadow type="math_number"><field name="NUM">0</field></shadow></value>
+</block>
 
 </category>`;
 }

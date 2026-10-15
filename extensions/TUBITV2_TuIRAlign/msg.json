@@ -8,7 +8,7 @@
     "TUBITV2TUIRALIGN_SECONDARY_RUN": "次校正（前／後／左／右／無）",
     "TUBITV2TUIRALIGN_STEP_RUN": "非阻塞單步",
     "TUBITV2TUIRALIGN_INIT": "初始化 IR 靠牆校正模式 %1",
-    "TUBITV2TUIRALIGN_SETPINS": "設定 IR 腳位 前 %1 後 %2 左前 %3 左後 %4 右前 %5 右後 %6",
+    "TUBITV2TUIRALIGN_SETPINS": "設定 IR 腳位 1前 %1 2後 %2 3左後 %3 4左前 %4 5右後 %5 6右前 %6",
     "TUBITV2TUIRALIGN_SETTARGETS": "設定 IR 目標值 前 %1 後 %2 左前 %3 左後 %4 右前 %5 右後 %6",
     "TUBITV2TUIRALIGN_SETRATIOANGLE": "設定 IR 比例角度模式 %1",
     "TUBITV2TUIRALIGN_SETDEADBANDS": "設定 IR 誤差範圍 距離 %1 角度 %2",
@@ -39,8 +39,8 @@
     "TUBITV2TUIRALIGN_RIGHT_BACK": "右後",
     "TUBITV2TUIRALIGN_IR_1": "1 前",
     "TUBITV2TUIRALIGN_IR_2": "2 後",
-    "TUBITV2TUIRALIGN_IR_3": "3 左前",
-    "TUBITV2TUIRALIGN_IR_4": "4 左後",
-    "TUBITV2TUIRALIGN_IR_5": "5 右前",
-    "TUBITV2TUIRALIGN_IR_6": "6 右後"
+    "TUBITV2TUIRALIGN_IR_3": "3 左後",
+    "TUBITV2TUIRALIGN_IR_4": "4 左前",
+    "TUBITV2TUIRALIGN_IR_5": "5 右後",
+    "TUBITV2TUIRALIGN_IR_6": "6 右前"
 }

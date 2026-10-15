@@ -8,10 +8,29 @@ function registerToolboxs () {
     <block type="tubitv2ppgun_init" id="tubitv2ppgun_init">
     </block>
 
+    <sep gap="36"/>
+    <label text="%{BKY_PPGUN_LAUNCH_CONTROL}" />
+
     <block type="tubitv2ppgun_launch" id="tubitv2ppgun_launch">
     </block>    
 
+    <block type="tubitv2ppgun_launchangle" id="tubitv2ppgun_launchangle">
+        <value name="DEG">
+        <shadow type="math_number">
+            <field name="NUM">0</field>
+        </shadow>
+        </value>
+    </block>
+
     <block type="tubitv2ppgun_changetocring" id="tubitv2ppgun_changetocring">
+    </block>
+
+    <block type="tubitv2ppgun_changetocringangle" id="tubitv2ppgun_changetocringangle">
+        <value name="DEG">
+        <shadow type="math_number">
+            <field name="NUM">0</field>
+        </shadow>
+        </value>
     </block>
 
     

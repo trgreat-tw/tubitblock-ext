@@ -1,0 +1,27 @@
+TuMTC	KEYWORD1
+setMtcXytConstants	KEYWORD2
+setMtcParameters	KEYWORD2
+adjustMtcConstantsAdd	KEYWORD2
+setMotorOffset	KEYWORD2
+SetMotorOffset	KEYWORD2
+initLineSensor	KEYWORD2
+initIRsensor	KEYWORD2
+readIR	KEYWORD2
+setLinePositionMapping	KEYWORD2
+setPosMapping	KEYWORD2
+moveSCurve	KEYWORD2
+moveSCurveLine	KEYWORD2
+moveSCurveBno	KEYWORD2
+moveSCurveBnoAbsolute	KEYWORD2
+moveSCurveBnoRelative	KEYWORD2
+turnBnoRelative	KEYWORD2
+moveSCurveLineBno	KEYWORD2
+moveSCurveLineBnoAbsolute	KEYWORD2
+moveCurveSCurveBno	KEYWORD2
+moveCurveSCurveBnoAbsolute	KEYWORD2
+setLinePid	KEYWORD2
+setHeadingPid	KEYWORD2
+captureBnoStartFrame	KEYWORD2
+syncBnoHeading	KEYWORD2
+LineCorrectionAxis	KEYWORD1
+

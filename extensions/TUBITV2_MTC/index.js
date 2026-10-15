@@ -2,17 +2,17 @@ const tubitv2mtc = formatMessage => ({
 
     name: formatMessage({
         id: 'tubitv2mtc.name',
-        default: 'TUBIT V2 MTC V2 ROBOT'
+        default: 'TUBIT V2 MTC V3 ROBOT'
     }),
     extensionId: 'tubitv2mtc',
 
-    version: '2.4.1',
+    version: '3.0.6',
     supportDevice: ['arduinoEsp32'],
     author: 'HUNG TU 鴻兔科技',
     iconURL: `assets/mtcv2.png`,
     description: formatMessage({
         id: 'tubitv2mtc.description',
-        default: 'For MTC V2 ROBOT.'
+        default: 'For MTC V3 ROBOT.'
     }),
     featured: true,
     blocks: 'blocks.js',

@@ -15,9 +15,21 @@ function registerGenerators (Blockly) {
         return `PPGUN_launch();\n`;
     };
 
+    Blockly.Arduino.tubitv2ppgun_launchangle = function (block) {
+        const deg = Blockly.Arduino.valueToCode(block, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || '0';
+        Blockly.Arduino.includes_.tubitv2ppgun_init_set = `#include <PPGUN.h>`;
+        return `PPGUN_launchAt(${deg});\n`;
+    };
+
     Blockly.Arduino.tubitv2ppgun_changetocring = function (block) {
         Blockly.Arduino.includes_.tubitv2ppgun_init_set = `#include <PPGUN.h>`;
         return `PPGUN_changeToCRing();\n`;
+    };
+
+    Blockly.Arduino.tubitv2ppgun_changetocringangle = function (block) {
+        const deg = Blockly.Arduino.valueToCode(block, 'DEG', Blockly.Arduino.ORDER_ATOMIC) || '0';
+        Blockly.Arduino.includes_.tubitv2ppgun_init_set = `#include <PPGUN.h>`;
+        return `PPGUN_changeToCRingAt(${deg});\n`;
     };
 
     Blockly.Arduino.tubitv2ppgun_trcontroladd= function (block) {

@@ -17,6 +17,7 @@ public:
 	void start(){
 		start(nullptr);
 	}
+	bool isReady() const;
 	double orientationX=0;
 	double orientationY=0;
 	double orientationZ=0;

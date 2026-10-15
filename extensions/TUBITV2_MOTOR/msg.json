@@ -8,7 +8,7 @@
     "TUBITV2_MOTOR_M4":"M4",
     "TUBITV2_MOTOR_ALLRUN":"all motor run M1 %1 M2 %2 M3 %3 M4 %4",
     "TUBITV2_MOTOR_READENC":"read motor %1 encoder",
-    "TUBITV2_MOTOR_RESETENC":"reset all motor encoder",
+    "TUBITV2_MOTOR_RESETENC":"reset all motor encoders",
     "TUBITV2_MOTOR_SETENC":" set %1 motor encoder  %2"
 
 }

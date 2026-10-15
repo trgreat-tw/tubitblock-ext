@@ -1,4 +1,4 @@
-//PPGUN V.2(u2026.7.11)
+// PPGUN v1.1.1 (2026-10-06)
 #ifndef PPGUN_H
 #define PPGUN_H
 
@@ -31,16 +31,30 @@ inline void PPGUN_INIT(ServoNum pan = S0, ServoNum head = S1, ServoNum launch = 
   tubit.setServoAngle(panPin, panDeg);
 }
 
+inline float PPGUN_LimitServoDeg(float deg) {
+  if (deg > 180) return 180;
+  if (deg < 0) return 0;
+  return deg;
+}
+
 // ------------------- 發射乒乓球 -------------------
-inline void PPGUN_launch() {
+inline void PPGUN_launchAt(float pushDeg) {
   tubit.stopAllMotors();
-  tubit.setServoAngle(launchPin, 0);
+  tubit.setServoAngle(launchPin, PPGUN_LimitServoDeg(pushDeg));
   delay(2000);
   tubit.setServoAngle(launchPin, launchDeg);
 }
 
-inline void PPGUN_changeToCRing() {//更換C型環
-  tubit.setServoAngle(launchPin, 150);
+inline void PPGUN_launch() {
+  PPGUN_launchAt(0);
+}
+
+inline void PPGUN_changeToCRingAt(float pushDeg) {
+  tubit.setServoAngle(launchPin, PPGUN_LimitServoDeg(pushDeg));
+}
+
+inline void PPGUN_changeToCRing() {
+  PPGUN_changeToCRingAt(150);
 }
 
 // ------------------- 累加角度控制 -------------------

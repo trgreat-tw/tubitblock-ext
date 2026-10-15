@@ -31,6 +31,10 @@ function registerGenerators (Blockly) {
         return [code, Blockly.Arduino.ORDER_ATOMIC];
     };
 
+    Blockly.Arduino.tubitv2motor_resetenc = function () {
+        return `tubit.resetEnc();\n`;
+    };
+
     Blockly.Arduino.tubitv2motor_setenc = function (block) {
         const mn = this.getFieldValue('NMOTOR');
         const enc = Blockly.Arduino.valueToCode(block, 'ENCODER', Blockly.Arduino.ORDER_ATOMIC);

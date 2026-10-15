@@ -54,6 +54,9 @@ function registerToolboxs () {
         </shadow>
     </value>
     </block>
+
+    <block type="tubitv2motor_resetenc" id="tubitv2motor_resetenc">
+    </block>
     
 </category>`;
 }

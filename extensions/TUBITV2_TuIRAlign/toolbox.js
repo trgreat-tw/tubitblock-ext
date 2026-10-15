@@ -13,10 +13,10 @@ function registerToolboxs () {
     <block type="tubitv2tuiralign_setpins" id="tubitv2tuiralign_setpins">
         <field name="FRONT">33</field>
         <field name="BACK">32</field>
-        <field name="LEFT_FRONT">35</field>
         <field name="LEFT_BACK">34</field>
-        <field name="RIGHT_FRONT">39</field>
-        <field name="RIGHT_BACK">36</field>
+        <field name="LEFT_FRONT">35</field>
+        <field name="RIGHT_BACK">39</field>
+        <field name="RIGHT_FRONT">36</field>
     </block>
 
     <block type="tubitv2tuiralign_settargets" id="tubitv2tuiralign_settargets">
