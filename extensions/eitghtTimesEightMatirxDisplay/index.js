@@ -4,7 +4,7 @@ const eitghtTimesEightMatirxDisplay = formatMessage => ({
         default: '8x8 Matrix Display'
     }),
     extensionId: 'eitghtTimesEightMatirxDisplay',
-    version: '1.0.0',
+    version: '1.1.0',
     supportDevice: ['arduinoUno', 'arduinoNano', 'arduinoLeonardo',
         'arduinoMega2560', 'arduinoEsp8266', 'arduinoEsp32'],
     author: 'ArthurZheng',

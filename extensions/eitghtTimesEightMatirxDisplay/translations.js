@@ -35,6 +35,8 @@ function registerBlocksMessages (Blockly) {
     Object.assign(Blockly.ScratchMsgs.locales["en"],
         {
             "EITGHTTIMESEIGHTMATIRXDISPLAY_CATEGORY": "8x8 Matrix Display",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN": "8x8 matrix display draw pattern %1",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN_TOOLTIP": "Click the 8x8 grid to design a complete pattern. Replaces the previous pattern and refreshes the display automatically.",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_BLACK": "black",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_RED": "red",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWLINE": "8x8 martix display draw line x0: %1 y0: %2, x1: %3 y1: %4 color %5",
@@ -54,6 +56,8 @@ function registerBlocksMessages (Blockly) {
     Object.assign(Blockly.ScratchMsgs.locales["ru"],
         {
             "EITGHTTIMESEIGHTMATIRXDISPLAY_CATEGORY": "Матричный дисплей 8x8",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN": "На матрице 8x8 нарисовать узор %1",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN_TOOLTIP": "Нажмите на сетку 8x8, чтобы создать узор. Заменяет предыдущий узор и автоматически обновляет дисплей.",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_BLACK": "Черный",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_RED": "Красный",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWLINE": "На матрице 8x8 нарисовать линию из (x0: %1 y0: %2) в (x1: %3 y1: %4) цвет %5",
@@ -73,6 +77,8 @@ function registerBlocksMessages (Blockly) {
     Object.assign(Blockly.ScratchMsgs.locales["zh-cn"],
         {
             "EITGHTTIMESEIGHTMATIRXDISPLAY_CATEGORY": "8x8点阵屏",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN": "8x8点阵屏绘制图案 %1",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN_TOOLTIP": "点击8x8格子设计完整图案。自动替换上一个图案并刷新显示，无需另外添加刷新积木。",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_BLACK": "黑色",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_RED": "红色",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWLINE": "8x8点阵屏绘制直线 x0: %1 y0: %2, x1: %3 y1: %4 颜色 %5",
@@ -92,6 +98,8 @@ function registerBlocksMessages (Blockly) {
     Object.assign(Blockly.ScratchMsgs.locales["zh-tw"],
         {
             "EITGHTTIMESEIGHTMATIRXDISPLAY_CATEGORY": "8x8點陣屏",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN": "8x8點陣屏繪製圖案 %1",
+            "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN_TOOLTIP": "點選8x8格子設計完整圖案。自動取代上一個圖案並刷新顯示，不必另外加入刷新積木。",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_BLACK": "黑色",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_RED": "紅色",
             "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWLINE": "8x8點陣屏繪製直線 x0: %1 y0: %2, x1: %3 y1: %4 顏色 %5",

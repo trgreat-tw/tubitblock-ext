@@ -1,14 +1,17 @@
 const l298n = formatMessage => ({
-    name: 'L298N',
+    name: formatMessage({
+        id: 'l298n.name',
+        default: 'Motor Control'
+    }),
     extensionId: 'l298n',
-    version: '1.0.0',
+    version: '2.0.0',
     supportDevice: ['arduinoUno', 'arduinoNano', 'arduinoLeonardo',
         'arduinoMega2560', 'arduinoEsp8266'],
     author: 'Liang',
-    iconURL: `assets/l298n.png`,
+    iconURL: `assets/motorControl.png`,
     description: formatMessage({
         id: 'l298n.description',
-        default: 'Common high power dual motor drive module.'
+        default: 'Universal two-pin DC motor control using MA and MB.'
     }),
     featured: true,
     blocks: 'blocks.js',

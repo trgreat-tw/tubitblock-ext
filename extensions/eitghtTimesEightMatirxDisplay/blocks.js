@@ -52,6 +52,40 @@ function registerBlocks (Blockly) {
         }
     };
 
+    Blockly.Blocks.eitghtTimesEightMatirxDisplay_drawPattern = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN,
+                args0: [
+                    {
+                        type: 'field_matrix',
+                        name: 'MATRIX',
+                        width: 8,
+                        height: 8
+                    }
+                ],
+                tooltip: Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN_TOOLTIP,
+                colour: colour,
+                secondaryColour: secondaryColour,
+                extensions: ['shape_statement']
+            });
+            // Keep unlit pixels visible in both the thumbnail and the editor.
+            const matrixField = this.getField('MATRIX');
+            const updateMatrix = matrixField.updateMatrix_;
+            matrixField.updateMatrix_ = function () {
+                updateMatrix.call(this);
+                const matrix = this.getValue();
+                [this.ledThumbNodes_, this.ledButtons_].forEach(nodes => {
+                    nodes.forEach((node, index) => {
+                        node.setAttribute('fill', matrix[index] === '1' ? '#FFFFFF' : '#1A1A1A');
+                    });
+                });
+            };
+            // FieldMatrix initializes its dimensions after the base constructor.
+            this.setFieldValue('0'.repeat(64), 'MATRIX');
+        }
+    };
+
     Blockly.Blocks.eitghtTimesEightMatirxDisplay_drawPixel = {
         init: function () {
             this.jsonInit({

@@ -9,6 +9,79 @@ function registerBlocks (Blockly) {
 
     const pwmPins = Blockly.Device.getPinOptions('arduino_pin_setPwmOutput');
 
+    const prioritizePwmPin = (pin, fallbackIndex) => {
+        const matchingPins = pwmPins.filter(option => String(option[1]) === pin);
+        const otherPins = pwmPins.filter(option => String(option[1]) !== pin);
+        if (matchingPins.length) return matchingPins.concat(otherPins);
+        if (pwmPins.length > fallbackIndex) {
+            return [pwmPins[fallbackIndex]].concat(pwmPins.filter((option, index) => index !== fallbackIndex));
+        }
+        return pwmPins;
+    };
+
+    Blockly.Blocks.motor_control_init = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.MOTOR_CONTROL_INIT,
+                args0: [
+                    {
+                        type: 'field_dropdown',
+                        name: 'MA',
+                        options: prioritizePwmPin('5', 0)
+                    },
+                    {
+                        type: 'field_dropdown',
+                        name: 'MB',
+                        options: prioritizePwmPin('6', 1)
+                    }
+                ],
+                tooltip: Blockly.Msg.MOTOR_CONTROL_INIT_TOOLTIP,
+                colour: color,
+                secondaryColour: secondaryColour,
+                extensions: ['shape_statement']
+            });
+        }
+    };
+
+    Blockly.Blocks.motor_control_run = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.MOTOR_CONTROL_RUN,
+                args0: [
+                    {
+                        type: 'field_dropdown',
+                        name: 'DIR',
+                        options: [
+                            [Blockly.Msg.MOTOR_CONTROL_FORWARD, 'MOTOR_CONTROL_FORWARD'],
+                            [Blockly.Msg.MOTOR_CONTROL_BACKWARD, 'MOTOR_CONTROL_BACKWARD']
+                        ]
+                    },
+                    {
+                        type: 'input_value',
+                        name: 'SPEED'
+                    }
+                ],
+                tooltip: Blockly.Msg.MOTOR_CONTROL_RUN_TOOLTIP,
+                colour: color,
+                secondaryColour: secondaryColour,
+                extensions: ['shape_statement']
+            });
+        }
+    };
+
+    Blockly.Blocks.motor_control_stop = {
+        init: function () {
+            this.jsonInit({
+                message0: Blockly.Msg.MOTOR_CONTROL_STOP,
+                colour: color,
+                secondaryColour: secondaryColour,
+                extensions: ['shape_statement']
+            });
+        }
+    };
+
+    // Keep the original L298N blocks registered so saved projects that use
+    // the former EN/IN1/IN2 interface can still be opened and generated.
     Blockly.Blocks.l298n_init = {
         init: function () {
             this.jsonInit({

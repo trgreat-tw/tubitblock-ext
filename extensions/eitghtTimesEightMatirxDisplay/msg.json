@@ -3,6 +3,8 @@
     "EITGHTTIMESEIGHTMATIRXDISPLAY_INIT": "init 8x8 matrix display pin CS %1",
     "EITGHTTIMESEIGHTMATIRXDISPLAY_INIT_WITH_PINS": "init 8x8 matrix display pin DIN %1 CS %2 CLK %3",
     "EITGHTTIMESEIGHTMATIRXDISPLAY_INIT_TOOLTIP": "Arduino Nano uses software SPI on the selected DIN, CS and CLK pins.",
+    "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN": "8x8 matrix display draw pattern %1",
+    "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPATTERN_TOOLTIP": "Click the 8x8 grid to design a complete pattern. Replaces the previous pattern and refreshes the display automatically.",
     "EITGHTTIMESEIGHTMATIRXDISPLAY_DRAWPIXEL": "8x8 martix display draw pixel x: %1 y: %2 color %3",
     "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_RED": "red",
     "EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_BLACK": "black",
