@@ -24,17 +24,28 @@ void MotorControl::run(int direction, int speed) {
     output = constrain(output, 0L, 255L);
 
     // Disable both sides before changing direction to avoid a brief overlap.
-    analogWrite(_pinMA, 0);
-    analogWrite(_pinMB, 0);
+    writeOutput(_pinMA, 0);
+    writeOutput(_pinMB, 0);
 
     if (direction == MOTOR_CONTROL_BACKWARD) {
-        analogWrite(_pinMB, static_cast<int>(output));
+        writeOutput(_pinMB, static_cast<uint8_t>(output));
     } else {
-        analogWrite(_pinMA, static_cast<int>(output));
+        writeOutput(_pinMA, static_cast<uint8_t>(output));
     }
 }
 
 void MotorControl::stop() {
-    analogWrite(_pinMA, 0);
-    analogWrite(_pinMB, 0);
+    writeOutput(_pinMA, 0);
+    writeOutput(_pinMB, 0);
+}
+
+void MotorControl::writeOutput(uint8_t pin, uint8_t value) {
+#if defined(ARDUINO_ARCH_AVR) && defined(digitalPinHasPWM)
+    // AVR analogWrite otherwise turns non-PWM pins OFF for speeds below 128.
+    if (!digitalPinHasPWM(pin)) {
+        digitalWrite(pin, value > 0 ? HIGH : LOW);
+        return;
+    }
+#endif
+    analogWrite(pin, value);
 }

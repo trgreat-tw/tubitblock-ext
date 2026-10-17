@@ -3,8 +3,8 @@
 /* eslint-disable require-jsdoc */
 function registerGenerators (Blockly) {
     Blockly.Arduino.motor_control_init = function (block) {
-        const ma = block.getFieldValue('MA') || '5';
-        const mb = block.getFieldValue('MB') || '6';
+        const ma = block.getFieldValue('MA') || '2';
+        const mb = block.getFieldValue('MB') || '3';
 
         Blockly.Arduino.includes_.motor_control_init = `#include <MotorControl.h>`;
         Blockly.Arduino.definitions_.motor_control_init = `MotorControl motorControl(${ma}, ${mb});`;

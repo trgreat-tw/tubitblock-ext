@@ -1,9 +1,9 @@
 {
     "L298N_CATEGORY": "Motor Control",
     "MOTOR_CONTROL_INIT": "initialize motor control MA pin %1 MB pin %2",
-    "MOTOR_CONTROL_INIT_TOOLTIP": "Connect one motor's red wire to MA and black wire to MB. Choose two different PWM-capable control pins. For L298N, keep the channel enable jumper installed.",
+    "MOTOR_CONTROL_INIT_TOOLTIP": "Connect one motor's red wire to MA and black wire to MB. Choose any two different output-capable control pins. PWM pins support speed control; AVR non-PWM pins support full speed and stop. For L298N, keep the channel enable jumper installed.",
     "MOTOR_CONTROL_RUN": "motor run %1 speed %2",
-    "MOTOR_CONTROL_RUN_TOOLTIP": "Forward outputs PWM on MA and LOW on MB; backward swaps the two outputs.",
+    "MOTOR_CONTROL_RUN_TOOLTIP": "Forward drives MA and holds MB LOW; backward swaps the outputs. PWM pins support speed control. AVR non-PWM pins output full speed for any positive speed, or stop at zero.",
     "MOTOR_CONTROL_FORWARD": "forward",
     "MOTOR_CONTROL_BACKWARD": "backward",
     "MOTOR_CONTROL_STOP": "stop motor",

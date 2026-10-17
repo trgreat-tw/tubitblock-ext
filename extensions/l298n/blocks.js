@@ -9,14 +9,14 @@ function registerBlocks (Blockly) {
 
     const pwmPins = Blockly.Device.getPinOptions('arduino_pin_setPwmOutput');
 
-    const prioritizePwmPin = (pin, fallbackIndex) => {
-        const matchingPins = pwmPins.filter(option => String(option[1]) === pin);
-        const otherPins = pwmPins.filter(option => String(option[1]) !== pin);
+    const prioritizePin = (pin, fallbackIndex) => {
+        const matchingPins = digitalPins.filter(option => String(option[1]) === pin);
+        const otherPins = digitalPins.filter(option => String(option[1]) !== pin);
         if (matchingPins.length) return matchingPins.concat(otherPins);
-        if (pwmPins.length > fallbackIndex) {
-            return [pwmPins[fallbackIndex]].concat(pwmPins.filter((option, index) => index !== fallbackIndex));
+        if (digitalPins.length > fallbackIndex) {
+            return [digitalPins[fallbackIndex]].concat(digitalPins.filter((option, index) => index !== fallbackIndex));
         }
-        return pwmPins;
+        return digitalPins;
     };
 
     Blockly.Blocks.motor_control_init = {
@@ -27,12 +27,12 @@ function registerBlocks (Blockly) {
                     {
                         type: 'field_dropdown',
                         name: 'MA',
-                        options: prioritizePwmPin('5', 0)
+                        options: prioritizePin('2', 0)
                     },
                     {
                         type: 'field_dropdown',
                         name: 'MB',
-                        options: prioritizePwmPin('6', 1)
+                        options: prioritizePin('3', 1)
                     }
                 ],
                 tooltip: Blockly.Msg.MOTOR_CONTROL_INIT_TOOLTIP,

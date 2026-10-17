@@ -15,6 +15,8 @@ public:
     void stop();
 
 private:
+    void writeOutput(uint8_t pin, uint8_t value);
+
     uint8_t _pinMA;
     uint8_t _pinMB;
 };
