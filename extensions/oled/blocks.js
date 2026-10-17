@@ -5,6 +5,8 @@ function registerBlocks (Blockly) {
     const colour = '#C0C0C0';
     const secondaryColour = '#A9A9A9';
 
+    const isNano = Blockly.Device.getDeviceId() === 'arduinoNano';
+
     const getColourMenu = () => [
         [Blockly.Msg.OLED_COLOR_WHITE, 'SSD1306_WHITE'],
         [Blockly.Msg.OLED_COLOR_BLACK, 'SSD1306_BLACK'],
@@ -18,26 +20,48 @@ function registerBlocks (Blockly) {
 
     Blockly.Blocks.oled_init = {
         init: function () {
-            this.jsonInit({
-                message0: Blockly.Msg.OLED_INIT,
-                args0: [
+            const args = [
+                {
+                    type: 'input_value',
+                    name: 'W'
+                },
+                {
+                    type: 'input_value',
+                    name: 'H'
+                },
+                {
+                    type: 'field_dropdown',
+                    name: 'ADDR',
+                    options: [
+                        ['0x78 (0x3c)', '0x3c'],
+                        ['0x7a (0x3d)', '0x3d']
+                    ]
+                }
+            ];
+            if (isNano) {
+                const digitalPins = Blockly.Device.getPinOptions('arduino_pin_setDigitalOutput');
+                const prioritizePin = pin => {
+                    const matchingPins = digitalPins.filter(option => String(option[1]) === pin);
+                    const otherPins = digitalPins.filter(option => String(option[1]) !== pin);
+                    return matchingPins.length ? matchingPins.concat(otherPins) : [[pin, pin]].concat(otherPins);
+                };
+                args.push(
                     {
-                        type: 'input_value',
-                        name: 'W'
-                    },
-                    {
-                        type: 'input_value',
-                        name: 'H'
+                        type: 'field_dropdown',
+                        name: 'SDA',
+                        options: prioritizePin('A4')
                     },
                     {
                         type: 'field_dropdown',
-                        name: 'ADDR',
-                        options: [
-                            ['0x78 (0x3c)', '0x3c'],
-                            ['0x7a (0x3d)', '0x3d']
-                        ]
+                        name: 'SCL',
+                        options: prioritizePin('A5')
                     }
-                ],
+                );
+            }
+            this.jsonInit({
+                message0: isNano ? Blockly.Msg.OLED_INIT_WITH_PINS : Blockly.Msg.OLED_INIT,
+                args0: args,
+                tooltip: isNano ? Blockly.Msg.OLED_INIT_TOOLTIP : '',
                 colour: colour,
                 secondaryColour: secondaryColour,
                 extensions: ['shape_statement']

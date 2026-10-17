@@ -5,8 +5,12 @@ function registerBlocks (Blockly) {
     const colour = '#CE0000';
     const secondaryColour = '#AE0000';
 
+    const isNano = Blockly.Device.getDeviceId() === 'arduinoNano';
     const digitalPins = Blockly.Device.getPinOptions('arduino_pin_setDigitalOutput');
-    
+
+    const prioritizePin = pin => digitalPins.filter(option => String(option[1]) === pin)
+        .concat(digitalPins.filter(option => String(option[1]) !== pin));
+
     const getColourMenu = () => [
         [Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_RED, 'HIGH'],
         [Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_COLOR_BLACK, 'LOW']
@@ -14,16 +18,33 @@ function registerBlocks (Blockly) {
 
     Blockly.Blocks.eitghtTimesEightMatirxDisplay_init = {
         init: function () {
+            const args = isNano ? [
+                {
+                    type: 'field_dropdown',
+                    name: 'DIN',
+                    options: prioritizePin('12')
+                },
+                {
+                    type: 'field_dropdown',
+                    name: 'CS',
+                    options: prioritizePin('10')
+                },
+                {
+                    type: 'field_dropdown',
+                    name: 'CLK',
+                    options: prioritizePin('11')
+                }
+            ] : [
+                {
+                    type: 'field_dropdown',
+                    name: 'CS',
+                    options: prioritizePin('2')
+                }
+            ];
             this.jsonInit({
-                message0: Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_INIT,
-                args0: [
-                    {
-                        type: 'field_dropdown',
-                        name: 'CS',
-                        options: digitalPins
-                    }
-                ],
-                tooltip: Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_INIT_TOOLTIP,
+                message0: isNano ? Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_INIT_WITH_PINS : Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_INIT,
+                args0: args,
+                tooltip: isNano ? Blockly.Msg.EITGHTTIMESEIGHTMATIRXDISPLAY_INIT_TOOLTIP : '',
                 colour: colour,
                 secondaryColour: secondaryColour,
                 extensions: ['shape_statement']

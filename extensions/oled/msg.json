@@ -1,6 +1,8 @@
 {
     "OLED_CATEGORY": "OLED",
     "OLED_INIT": "init oled width %1 height %2 I2C address %3",
+    "OLED_INIT_WITH_PINS": "init oled width %1 height %2 I2C address %3 SDA %4 SCL %5",
+    "OLED_INIT_TOOLTIP": "Arduino Nano uses software I2C on the selected SDA and SCL pins. Other boards keep their original I2C library behavior.",
     "OLED_DRAWLINE": "oled draw line x0: %1 y0: %2, x1: %3 y1：%4 color %5",
     "OLED_COLOR_WHITE": "white",
     "OLED_COLOR_BLACK": "black",

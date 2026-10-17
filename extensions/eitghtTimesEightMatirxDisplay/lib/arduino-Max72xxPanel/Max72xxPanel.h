@@ -41,6 +41,15 @@ public:
    */
   Max72xxPanel(byte csPin, byte hDisplays=1, byte vDisplays=1);
 
+#if defined(ARDUINO_ARCH_AVR)
+  /*
+   * Create a controller using software SPI on AVR boards.
+   * hDisplays and vDisplays are intentionally required so calls to the
+   * original three-argument constructor remain unambiguous.
+   */
+  Max72xxPanel(byte dinPin, byte csPin, byte clkPin, byte hDisplays, byte vDisplays);
+#endif
+
 	/*
 	 * Define how the displays are ordered. The first display (0)
 	 * is the one closest to the Arduino.
@@ -101,6 +110,12 @@ public:
 
 private:
   byte SPI_CS; /* SPI chip selection */
+
+#if defined(ARDUINO_ARCH_AVR)
+  byte SPI_DIN;
+  byte SPI_CLK;
+  boolean softwareSPI;
+#endif
 
   /* Send out a single command to the device */
   void spiTransfer(byte opcode, byte data=0);

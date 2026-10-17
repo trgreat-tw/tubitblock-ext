@@ -7,8 +7,15 @@ function registerGenerators (Blockly) {
         const h = Blockly.Arduino.valueToCode(block, 'H', Blockly.Arduino.ORDER_ATOMIC);
         const addr = block.getFieldValue('ADDR');
 
-        Blockly.Arduino.includes_.oled_init = `#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>`;
-        Blockly.Arduino.definitions_.oled_init = `Adafruit_SSD1306 oled(${w}, ${h}, &Wire);`;
+        if (Blockly.Device.getDeviceId() === 'arduinoNano') {
+            const sda = block.getFieldValue('SDA') || 'A4';
+            const scl = block.getFieldValue('SCL') || 'A5';
+            Blockly.Arduino.includes_.oled_init = `#include <Adafruit_GFX.h>\n#include <TubitSoftSSD1306.h>`;
+            Blockly.Arduino.definitions_.oled_init = `TubitSoftSSD1306 oled(${w}, ${h}, ${sda}, ${scl});`;
+        } else {
+            Blockly.Arduino.includes_.oled_init = `#include <Wire.h>\n#include <Adafruit_GFX.h>\n#include <Adafruit_SSD1306.h>`;
+            Blockly.Arduino.definitions_.oled_init = `Adafruit_SSD1306 oled(${w}, ${h}, &Wire);`;
+        }
 
         return `oled.begin(SSD1306_SWITCHCAPVCC, ${addr});\n`;
     };

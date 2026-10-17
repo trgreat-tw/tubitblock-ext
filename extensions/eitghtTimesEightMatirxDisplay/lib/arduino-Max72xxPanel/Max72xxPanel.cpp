@@ -37,6 +37,9 @@
 Max72xxPanel::Max72xxPanel(byte csPin, byte hDisplays, byte vDisplays) : Adafruit_GFX(hDisplays << 3, vDisplays << 3) {
 
   Max72xxPanel::SPI_CS = csPin;
+#if defined(ARDUINO_ARCH_AVR)
+  Max72xxPanel::softwareSPI = false;
+#endif
 
   byte displays = hDisplays * vDisplays;
   Max72xxPanel::hDisplays = hDisplays;
@@ -74,6 +77,51 @@ Max72xxPanel::Max72xxPanel(byte csPin, byte hDisplays, byte vDisplays) : Adafrui
   // Set the brightness to a medium value
   setIntensity(7);
 }
+
+#if defined(ARDUINO_ARCH_AVR)
+Max72xxPanel::Max72xxPanel(byte dinPin, byte csPin, byte clkPin, byte hDisplays, byte vDisplays) : Adafruit_GFX(hDisplays << 3, vDisplays << 3) {
+
+  Max72xxPanel::SPI_DIN = dinPin;
+  Max72xxPanel::SPI_CS = csPin;
+  Max72xxPanel::SPI_CLK = clkPin;
+  Max72xxPanel::softwareSPI = true;
+
+  byte displays = hDisplays * vDisplays;
+  Max72xxPanel::hDisplays = hDisplays;
+	Max72xxPanel::bitmapSize = displays << 3;
+
+  Max72xxPanel::bitmap = (byte*)malloc(bitmapSize);
+  Max72xxPanel::matrixRotation = (byte*)malloc(displays);
+  Max72xxPanel::matrixPosition = (byte*)malloc(displays);
+
+  for ( byte display = 0; display < displays; display++ ) {
+	  matrixPosition[display] = display;
+	  matrixRotation[display] = 0;
+  }
+
+  pinMode(SPI_DIN, OUTPUT);
+  pinMode(SPI_CS, OUTPUT);
+  pinMode(SPI_CLK, OUTPUT);
+
+  // Clear the screen
+  fillScreen(0);
+
+  // Make sure we are not in test mode
+  spiTransfer(OP_DISPLAYTEST, 0);
+
+  // We need the multiplexer to scan all segments
+  spiTransfer(OP_SCANLIMIT, 7);
+
+  // We don't want the multiplexer to decode segments for us
+  spiTransfer(OP_DECODEMODE, 0);
+
+  // Enable display
+  shutdown(false);
+
+  // Set the brightness to a medium value
+  setIntensity(7);
+}
+#endif
 
 void Max72xxPanel::setPosition(byte display, byte x, byte y) {
 	matrixPosition[x + hDisplays * y] = display;
@@ -185,8 +233,18 @@ void Max72xxPanel::spiTransfer(byte opcode, byte data) {
 	byte start = bitmapSize + end;
 	do {
 		start -= 8;
+#if defined(ARDUINO_ARCH_AVR)
+		if (softwareSPI) {
+			shiftOut(SPI_DIN, SPI_CLK, MSBFIRST, opcode);
+			shiftOut(SPI_DIN, SPI_CLK, MSBFIRST, opcode <= OP_DIGIT7 ? bitmap[start] : data);
+		}
+		else {
+#endif
 		SPI.transfer(opcode);
 		SPI.transfer(opcode <= OP_DIGIT7 ? bitmap[start] : data);
+#if defined(ARDUINO_ARCH_AVR)
+		}
+#endif
 	}
 	while ( start > end );
 

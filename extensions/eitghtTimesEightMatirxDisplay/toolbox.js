@@ -4,9 +4,7 @@
 function registerToolboxs () {
     return `
 <category name="%{BKY_EITGHTTIMESEIGHTMATIRXDISPLAY_CATEGORY}" id="EITGHTTIMESEIGHTMATIRXDISPLAY_CATEGORY" colour="#CE0000" secondaryColour="#AE0000">
-    <block type="eitghtTimesEightMatirxDisplay_init" id="eitghtTimesEightMatirxDisplay_init">
-        <field name="CS">2</field>
-    </block>
+    <block type="eitghtTimesEightMatirxDisplay_init" id="eitghtTimesEightMatirxDisplay_init"></block>
     <sep gap="36"/>
     <block type="eitghtTimesEightMatirxDisplay_drawPixel" id="eitghtTimesEightMatirxDisplay_drawPixel">
         <value name="X">

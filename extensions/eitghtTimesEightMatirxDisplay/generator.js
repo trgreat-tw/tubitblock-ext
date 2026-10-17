@@ -3,10 +3,16 @@
 /* eslint-disable require-jsdoc */
 function registerGenerators (Blockly) {
     Blockly.Arduino.eitghtTimesEightMatirxDisplay_init = function (block) {
-        const cs = block.getFieldValue('CS');
-
         Blockly.Arduino.includes_.eitghtTimesEightMatirxDisplay_init = `#include <SPI.h>\n#include <Adafruit_GFX.h>\n#include <Max72xxPanel.h>`;
-        Blockly.Arduino.definitions_.eitghtTimesEightMatirxDisplay_init = `Max72xxPanel eitghtTimesEightMatrix = Max72xxPanel(${cs}, 1, 1);`;
+        if (Blockly.Device.getDeviceId() === 'arduinoNano') {
+            const din = block.getFieldValue('DIN') || '12';
+            const cs = block.getFieldValue('CS') || '10';
+            const clk = block.getFieldValue('CLK') || '11';
+            Blockly.Arduino.definitions_.eitghtTimesEightMatirxDisplay_init = `Max72xxPanel eitghtTimesEightMatrix = Max72xxPanel(${din}, ${cs}, ${clk}, 1, 1);`;
+        } else {
+            const cs = block.getFieldValue('CS') || '2';
+            Blockly.Arduino.definitions_.eitghtTimesEightMatirxDisplay_init = `Max72xxPanel eitghtTimesEightMatrix = Max72xxPanel(${cs}, 1, 1);`;
+        }
 
         return ``;
     };
