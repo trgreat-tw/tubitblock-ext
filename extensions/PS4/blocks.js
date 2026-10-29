@@ -18,6 +18,7 @@ function registerBlocks (Blockly) {
                 colour: color,
                 extensions: ['shape_statement']
             });
+            this.setTooltip(Blockly.Msg.PS4_CONTROLLER_HELP);
         }
     };
 

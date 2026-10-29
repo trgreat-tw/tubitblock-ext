@@ -33,6 +33,7 @@ function registerBlocksMessages (Blockly) {
     "PS4_CONTROLLER_CATEGORY": "PS4 Controller",
 
     "PS4_CONTROLLER_INIT": "Initialize PS4 connection MAC: %1",
+    "PS4_CONTROLLER_HELP": "Clears all stored Classic Bluetooth bonds at initialization. MAC is the host address remembered by the controller; all zeros uses the factory address.",
     "PS4_CONTROLLER_IS_CONNECTED": "PS4 is connected",
 
     "PS4_CONTROLLER_DUMP": "Serial output PS4 status",
@@ -79,6 +80,7 @@ Object.assign(Blockly.ScratchMsgs.locales["zh-cn"],
     "PS4_CONTROLLER_CATEGORY": "PS4手柄",
 
     "PS4_CONTROLLER_INIT": "PS4连接初始化 MAC：%1",
+    "PS4_CONTROLLER_HELP": "初始化时自动清除ESP32的蓝牙配对记录。MAC填手柄记住的主机地址；全零使用原生地址。",
     "PS4_CONTROLLER_IS_CONNECTED": "PS4已连接",
 
     "PS4_CONTROLLER_DUMP": "串口输出PS4状态",
@@ -125,7 +127,8 @@ Object.assign(Blockly.ScratchMsgs.locales["zh-cn"],
         {   
             "PS4_CONTROLLER_CATEGORY": "PS4手把",
             
-            "PS4_CONTROLLER_INIT": "PS4連線初始化  MAC：%1",
+            "PS4_CONTROLLER_INIT": "PS4連線初始化 MAC：%1",
+    "PS4_CONTROLLER_HELP": "初始化時自動清除ESP32的藍牙配對紀錄。MAC填手把記住的主機位址；全零使用原生位址。",
             "PS4_CONTROLLER_IS_CONNECTED": "PS4已連接",
 
             "PS4_CONTROLLER_DUMP": "串口輸出PS4狀態",

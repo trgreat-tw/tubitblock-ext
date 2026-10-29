@@ -1,22 +1,26 @@
-#ifndef PS4Controller_h
-#define PS4Controller_h
+#ifndef PS4ControllerReconnect_h
+#define PS4ControllerReconnect_h
 
 #include "Arduino.h"
 
 extern "C" {
-#include "ps4.h"
+#include "ps4r.h"
 }
 
-class PS4Controller {
+class PS4ControllerReconnect {
 public:
   typedef void (*callback_t)();
 
-  ps4_t data;
-  ps4_event_t event;
-  ps4_cmd_t output;
+  ps4r_t data;
+  ps4r_event_t event;
+  ps4r_cmd_t output;
 
-  PS4Controller();
+  PS4ControllerReconnect();
 
+  // Select before begin(). PS4RL tests legacy pairing on clone controllers.
+  bool setLegacyPairing(bool enabled);
+  // Explicit experiment: delete all stored Classic bonds once per initialization.
+  bool setClearBondsOnStart(bool enabled);
   bool begin();
   bool begin(const char* mac);
   bool end();
@@ -166,7 +170,10 @@ public:
   }
 
 private:
-  static void _event_callback(void* object, ps4_t data, ps4_event_t event);
+  bool started_ = false;
+  bool legacyPairing_ = false;
+  bool clearBondsOnStart_ = false;
+  static void _event_callback(void* object, ps4r_t data, ps4r_event_t event);
   static void _connection_callback(void* object, uint8_t isConnected);
 
   callback_t _callback_event = nullptr;
@@ -175,7 +182,7 @@ private:
 };
 
 #ifndef NO_GLOBAL_INSTANCES
-extern PS4Controller PS4;
+extern PS4ControllerReconnect PS4R;
 #endif
 
 #endif

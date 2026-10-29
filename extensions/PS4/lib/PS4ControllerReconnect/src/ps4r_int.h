@@ -1,5 +1,5 @@
-#ifndef PS4_INT_H
-#define PS4_INT_H
+#ifndef PS4R_INT_H
+#define PS4R_INT_H
 
 #include "sdkconfig.h"
 
@@ -13,7 +13,7 @@
 #define BT_MODE ESP_BT_MODE_CLASSIC_BT
 #else
 #error \
-  "The selected Bluetooth controller mode is not supported by the ESP32-PS4 module"
+  "The selected Bluetooth controller mode is not supported by the ESP32-PS4R module"
 #endif
 
 #endif  // ARDUINO_ARCH_ESP32
@@ -44,43 +44,55 @@ typedef struct {
   uint8_t data[PS4_SEND_BUFFER_SIZE];
 } hid_cmd_t;
 
-enum ps4_control_packet_index {
-  ps4_control_packet_index_small_rumble = 5,
-  ps4_control_packet_index_large_rumble = 6,
+enum ps4r_control_packet_index {
+  ps4r_control_packet_index_small_rumble = 5,
+  ps4r_control_packet_index_large_rumble = 6,
 
-  ps4_control_packet_index_red = 7,
-  ps4_control_packet_index_green = 8,
-  ps4_control_packet_index_blue = 9,
+  ps4r_control_packet_index_red = 7,
+  ps4r_control_packet_index_green = 8,
+  ps4r_control_packet_index_blue = 9,
 
-  ps4_control_packet_index_flash_on_time = 10,
-  ps4_control_packet_index_flash_off_time = 11
+  ps4r_control_packet_index_flash_on_time = 10,
+  ps4r_control_packet_index_flash_off_time = 11
 };
 
 /********************************************************************************/
 /*                     C A L L B A C K   F U N C T I O N S */
 /********************************************************************************/
 
-void ps4ConnectEvent(uint8_t isConnected);
-void ps4PacketEvent(ps4_t ps4, ps4_event_t event);
+void ps4rConnectEvent(uint8_t isConnected);
+void ps4rPacketEvent(ps4r_t ps4r, ps4r_event_t event);
 
 /********************************************************************************/
 /*                      P A R S E R   F U N C T I O N S */
 /********************************************************************************/
 
-void parsePacket(uint8_t* packet);
+void ps4r_parsePacket(uint8_t* packet);
 
 /********************************************************************************/
 /*                          S P P   F U N C T I O N S */
 /********************************************************************************/
 
-void sppInit();
+bool ps4r_sppInit();
 
 /********************************************************************************/
 /*                          G A P   F U N C T I O N S */
 /********************************************************************************/
 
-void ps4_l2cap_init_services();
-void ps4_l2cap_deinit_services();
-void ps4_l2cap_send_hid(hid_cmd_t* hid_cmd, uint8_t len);
+bool ps4r_l2cap_init_services();
+void ps4r_l2cap_deinit_services();
+void ps4r_l2cap_send_hid(hid_cmd_t* hid_cmd, uint8_t len);
 
 #endif
+
+void ps4r_spp_deinit(void);
+void ps4rResetParser(void);
+void ps4r_l2cap_restore_connectable(void);
+void ps4r_l2cap_acl_disconnected(const uint8_t* address);
+
+void ps4r_sppSetLegacyPairing(bool enabled);
+
+void ps4r_sppSetClearBondsOnStart(bool enabled);
+bool ps4r_sppCanAcceptConnections(void);
+bool ps4r_clear_bonds(void);
+void ps4r_bond_removed(const uint8_t* peer, int status);
