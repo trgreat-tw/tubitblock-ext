@@ -79,8 +79,8 @@ vm.runInNewContext(evaluated[0], {
             // These two built-in serial blocks are normally registered from
             // device metadata by the VM. Their fields/inputs match that metadata.
             B.defineBlocksWithJsonArray([
-                {type:'arduino_serial_serialBegin', message0:'Serial begin %1', args0:[{type:'field_dropdown', name:'VALUE', options:[['115200','115200']]}], extensions:['shape_statement']},
-                {type:'arduino_serial_serialPrint', message0:'Serial print %1 %2', args0:[{type:'input_value', name:'VALUE'}, {type:'field_dropdown', name:'EOL', options:[['println','warp'],['print','noWarp']]}], extensions:['shape_statement']}
+                {type:'arduino_serial_multiSerialBegin', message0:'Serial %1 begin %2', args0:[{type:'field_dropdown',name:'NO',options:[['0','0']]},{type:'field_dropdown', name:'VALUE', options:[['115200','115200']]}], extensions:['shape_statement']},
+                {type:'arduino_serial_multiSerialPrint', message0:'Serial %1 print %2 %3', args0:[{type:'field_dropdown',name:'NO',options:[['0','0']]},{type:'input_value', name:'VALUE'}, {type:'field_dropdown', name:'EOL', options:[['println','warp'],['print','noWarp']]}], extensions:['shape_statement']}
             ]);
 
             const w = new B.Workspace();
@@ -91,13 +91,13 @@ vm.runInNewContext(evaluated[0], {
             const text = value => {const b = block('text'); b.setFieldValue(value, 'TEXT'); return b;};
             const number = value => {const b = block('math_number'); b.setFieldValue(String(value), 'NUM'); return b;};
             const hat = block('event_whenarduinobegin');
-            const serial = block('arduino_serial_serialBegin'); serial.setFieldValue('115200', 'VALUE');
+            const serial = block('arduino_serial_multiSerialBegin'); serial.setFieldValue('115200', 'VALUE');
             const init = block('ps4_controller_init'); input(init, 'MAC', text('00:00:00:00:00:00'));
             check(!init.getField('LIB'), 'Initialization has no LIB dropdown');
             attach(hat, serial); attach(serial, init);
             const forever = block('control_forever'); attach(init, forever);
             const items = [];
-            const print = reporter => {const p = block('arduino_serial_serialPrint'); p.setFieldValue('warp', 'EOL'); input(p, 'VALUE', reporter); items.push(p);};
+            const print = reporter => {const p = block('arduino_serial_multiSerialPrint'); p.setFieldValue('warp', 'EOL'); input(p, 'VALUE', reporter); items.push(p);};
             print(text('PS4 compare: connected, LX, LY, RX, RY, L2, R2, all buttons, battery, board MAC'));
             print(block('ps4_controller_isConnected'));
             for (const option of ['LStickX','LStickY','RStickX','RStickY','L2Value','R2Value']) {
@@ -179,17 +179,30 @@ vm.runInNewContext(evaluated[0], {
   const sketch=path.join(output,'PS4Default');fs.mkdirSync(sketch,{recursive:true});
   fs.writeFileSync(path.join(sketch,'PS4Default.ino'),results.code);
   fs.writeFileSync(path.join(output,'PS4-default.xml'),results.xml);
-  const zip=new JSZip();zip.file('project.json',JSON.stringify(results.project));
+  const backdrop='<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360"><rect width="480" height="360" fill="#ffffff"/></svg>';
+  const assetId=require('crypto').createHash('md5').update(backdrop).digest('hex');
+  results.project.targets[0].costumes=[{assetId,name:'backdrop1',bitmapResolution:1,md5ext:assetId+'.svg',dataFormat:'svg',rotationCenterX:240,rotationCenterY:180}];
+  const stage=results.project.targets[0];
+  results.project.targets.push({isStage:false,name:'PS4 test',variables:{},lists:{},broadcasts:{},blocks:stage.blocks,comments:stage.comments,currentCostume:0,costumes:stage.costumes,sounds:[],volume:100,layerOrder:1,visible:true,x:0,y:0,size:100,direction:90,draggable:false,rotationStyle:'all around'});
+  stage.blocks={};stage.comments={};
+  for(const target of results.project.targets) {
+   for(const block of Object.values(target.blocks)) {
+    for(const field of Object.values(block.fields||{}))if(typeof field[0]==='number')field[0]=String(field[0]);
+    if(['text','math_number'].includes(block.opcode)&&block.parent)block.shadow=true;
+   }
+   target.blocks=sb3Module.exports.serializeBlocks(sb3Module.exports.deserializeBlocks(target.blocks))[0];
+  }
+  const zip=new JSZip();zip.file(assetId+'.svg',backdrop);zip.file('project.json',JSON.stringify(results.project));
   const bytes=await zip.generateAsync({type:'nodebuffer'});fs.writeFileSync(path.join(output,'PS4-default.sb3'),bytes);
   const onDisk=JSON.parse(await (await JSZip.loadAsync(bytes)).file('project.json').async('string'));
-  const decoded=sb3Module.exports.deserializeBlocks(onDisk.targets[0].blocks);
+  const decoded=sb3Module.exports.deserializeBlocks(onDisk.targets.find(target=>!target.isStage).blocks);
   const initializer=Object.values(decoded).find(b=>b.opcode==='ps4_controller_init');
   assert(initializer&&!initializer.fields.LIB,'SB3 has no LIB field');
   const [resaved]=sb3Module.exports.serializeBlocks(decoded);assert(!resaved[initializer.id].fields.LIB,'SB3 resave has no LIB field');
   results.checks.push('Actual SB3 codec import/resave preserves the simplified initialization');
   for(const legacy of ['PS4C','PS4R','PS4RL','PS4RB','DS4']) {
-   const prior=structuredClone(onDisk);Object.values(prior.targets[0].blocks).find(b=>b.opcode==='ps4_controller_init').fields.LIB=[legacy,null];
-   const parsed=sb3Module.exports.deserializeBlocks(prior.targets[0].blocks);
+   const prior=structuredClone(onDisk),target=prior.targets.find(target=>!target.isStage);Object.values(target.blocks).find(b=>b.opcode==='ps4_controller_init').fields.LIB=[legacy,null];
+   const parsed=sb3Module.exports.deserializeBlocks(target.blocks);
    assert(Object.values(parsed).find(b=>b.opcode==='ps4_controller_init'),'Legacy SB3 initialization accepted');
    results.checks.push(legacy+' legacy SB3 accepted by the actual VM codec');
   }

@@ -35,3 +35,7 @@ Physical pairing, power-cycle reconnects and long-running Bluetooth stability
 still require the actual board/controller. The earlier local-only status in
 README-PS4R.txt describes creation of the supplied installation package;
 repository release and deployment status are tracked by the release notes.
+
+The SB3 example includes its stage backdrop asset so it can be opened in the
+complete Web editor, not only decoded by the block codec. The resource package
+advances to 2.20.5 for this example fix; the PS4 runtime stays at 1.3.0.
