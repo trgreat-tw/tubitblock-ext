@@ -1,0 +1,14 @@
+[
+  {
+    "model": "KY-010",
+    "page": "https://sensorkit.joy-it.net/en/sensors/ky-010",
+    "image": "https://sensorkit.joy-it.net/files/files/sensors/KY-010/KY-010.png",
+    "filename": "KY-010.png",
+    "width": 800,
+    "height": 586,
+    "format": "PNG",
+    "sha256": "59340cb2fcfbdf7ae30a1602c943713bcde578e41f4b78e33621def9f14881e0",
+    "credit": "Joy-IT / SIMAC Electronics GmbH",
+    "use": "Unmodified source photo embedded in a local SVG thumbnail layout."
+  }
+]
