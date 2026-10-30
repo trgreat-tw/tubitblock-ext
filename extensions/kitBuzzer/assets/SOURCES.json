@@ -1,0 +1,26 @@
+[
+  {
+    "model": "KY-006",
+    "page": "https://sensorkit.joy-it.net/en/sensors/ky-006",
+    "image": "https://sensorkit.joy-it.net/files/files/sensors/KY-006/KY-006.png",
+    "filename": "KY-006.png",
+    "width": 800,
+    "height": 574,
+    "format": "PNG",
+    "sha256": "dcd193f183a6c2fd597e05685df9fe59eff9c4a064747661b421e395b2b26866",
+    "credit": "Joy-IT / SIMAC Electronics GmbH",
+    "use": "Unmodified source photo embedded in a local SVG thumbnail layout."
+  },
+  {
+    "model": "KY-012",
+    "page": "https://sensorkit.joy-it.net/en/sensors/ky-012",
+    "image": "https://sensorkit.joy-it.net/files/files/sensors/KY-006/KY-006.png",
+    "filename": "KY-012.png",
+    "width": 800,
+    "height": 574,
+    "format": "PNG",
+    "sha256": "dcd193f183a6c2fd597e05685df9fe59eff9c4a064747661b421e395b2b26866",
+    "credit": "Joy-IT / SIMAC Electronics GmbH",
+    "use": "Unmodified source photo embedded in a local SVG thumbnail layout."
+  }
+]

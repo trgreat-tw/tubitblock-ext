@@ -1,0 +1,36 @@
+{
+  "repository": "https://github.com/igorantolic/ai-esp32-rotary-encoder",
+  "commit": "e6a33400276cf3cbd2389eca671eba8553f8fe03",
+  "version": "1.7",
+  "files": [
+    {
+      "path": "LICENSE.md",
+      "gitBlobSHA1": "985dc358d267e69eef643601ab579818f4b04c77"
+    },
+    {
+      "path": "README.md",
+      "gitBlobSHA1": "84ef34cfb5f48ddf4350c56d90132028eef0a120"
+    },
+    {
+      "path": "library.properties",
+      "gitBlobSHA1": "884d7bc011ddacdff6cda33e65b58780fc253009"
+    },
+    {
+      "path": "src/AiEsp32RotaryEncoder.cpp",
+      "gitBlobSHA1": "54445358c5cb2e2988bdc1a6a2a8440632ed9941"
+    },
+    {
+      "path": "src/AiEsp32RotaryEncoder.h",
+      "gitBlobSHA1": "e7b1926e8d87441df42d70958170212753263b8b"
+    },
+    {
+      "path": "src/AiEsp32RotaryEncoderNumberSelector.cpp",
+      "gitBlobSHA1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "src/AiEsp32RotaryEncoderNumberSelector.h",
+      "gitBlobSHA1": "efcdef1c2bf731e4f5899ad71b10d8bc5618c9a3"
+    }
+  ],
+  "modifications": "None. TuRotaryEncoder adapter is maintained separately; upstream is used only for ESP32."
+}
