@@ -1,0 +1,59 @@
+{
+  "repository": "https://github.com/adafruit/DHT-sensor-library",
+  "tag": "1.4.7",
+  "commit": "f7d625462e6033f373e51f8c67f88fc429535b47",
+  "archiveSHA256": "63946c1c2c6cea1bab57d0dff014b22701628427808df7fddfb1baf03f413c95",
+  "files": [
+    {
+      "path": "DHT.cpp",
+      "sha256": "cf70defe189d5d6e8a4ec379c4e1819bc2ec4285f3ea68ecfc58708ac5013915",
+      "gitBlob": "ba3b434a78dbc1c8c0c90f40e37c88a565586564"
+    },
+    {
+      "path": "DHT.h",
+      "sha256": "6301be3c1d7cdb6174932a09b2d1c2cd5dc1ae242a48802b425cd2c2515d0ffb",
+      "gitBlob": "1dd0eeec23334c6879d450a7b8ca6c8093c3f4f8"
+    },
+    {
+      "path": "DHT_U.cpp",
+      "sha256": "9cd0b15a4482bde92d7b8c9ff24e26edc6a00a9c329fcdb85830b95e4ce467c8",
+      "gitBlob": "ab8852aed53c32e7ec8760a33a63fbf8e209c859"
+    },
+    {
+      "path": "DHT_U.h",
+      "sha256": "b94797389a9a357767fc97f39d6cf68b53f478e79f3a080be57fed9fb368163f",
+      "gitBlob": "0b322ccf5910740fcdf59e24fa536892d7b2f1f1"
+    },
+    {
+      "path": "library.properties",
+      "sha256": "a224463cf9b12c1b0615b70ea881d7d07ee1d989815414875bce1bb12cd464af",
+      "gitBlob": "2db45cf5d43e120fc98ce62758f5d16537a7495b"
+    },
+    {
+      "path": "keywords.txt",
+      "sha256": "811689e0a1ca66d0a1f3c127f28962171ff1bc920228e931f1a117a050cfc9cd",
+      "gitBlob": "3b0280fc4b28c75c49fcea17bd3320fed64eba9c"
+    },
+    {
+      "path": "license.txt",
+      "sha256": "8598f9a7e17727381839097b65b763e8e574b980b8157754209e9a089176c927",
+      "gitBlob": "f06f843e428efe8862f5db6a796db971290976f9"
+    },
+    {
+      "path": "README.md",
+      "sha256": "e6cb9c429a334754319514fada735c1e3bcda65b8ff86045cba2a8fa03276401",
+      "gitBlob": "ba871876d3c056c589c19ea0fb849b15a939deb0"
+    },
+    {
+      "path": "examples/DHTtester/DHTtester.ino",
+      "sha256": "0bbc4b5d69879c38c4fb3ce0bf7d7601b7a67b5cd882b9bba0a395748998640b",
+      "gitBlob": "d13507bfe8b56e9bf24e0ceea56af8b5b27c8f39"
+    },
+    {
+      "path": "examples/DHT_Unified_Sensor/DHT_Unified_Sensor.ino",
+      "sha256": "1ca27ca31f57cf492f5fc1bf1ea21eea1b72dc0369554ec6bbd9326e21bbce37",
+      "gitBlob": "0f70347baebfb15e91bca03f6e89f500782ca1d2"
+    }
+  ],
+  "modifications": "None. Legacy README.txt retained from the existing extension."
+}
